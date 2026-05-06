@@ -1,0 +1,5 @@
+# Si el sitio no está en getgeneria.com, sustituye la URL del Sitemap.
+User-agent: *
+Allow: /
+
+Sitemap: https://getgeneria.com/sitemap.xml
