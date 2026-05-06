@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo - App Movil</title>
+<style>
+body { margin:0; background:#020617; color:#0f172a; font-family:"Courier New", monospace; }
+.wrapper { max-width:980px; margin:auto; padding:2rem 1.2rem; }
+.title { color:#d946ef; letter-spacing:.12em; text-align:center; margin-bottom:.6rem; }
+.helper { color:#cbd5e1; text-align:center; margin-bottom:1.4rem; }
+.layout { display:grid; grid-template-columns: 300px 1fr; gap:1rem; align-items:start; }
+.phone { border:1px solid rgba(217,70,239,.35); border-radius:22px; padding:1rem; background:#f8fafc; }
+.screen { border:1px solid rgba(148,163,184,.35); border-radius:12px; min-height:390px; padding:.8rem; background:#fff; }
+.item { border:1px solid rgba(148,163,184,.35); border-radius:10px; padding:.6rem; margin-bottom:.45rem; opacity:.55; transition:.25s; background:#fff; }
+.item.active { opacity:1; border-color:rgba(217,70,239,.8); background: rgba(217,70,239,.1); }
+.panel { background:#f8fafc; border:1px solid rgba(217,70,239,.35); border-radius:14px; padding:1rem; }
+.summary { white-space: pre-line; font-size:.86rem; line-height:1.55; }
+.back { display:block; text-align:center; color:#cbd5e1; margin-top:1.6rem; }
+@media (max-width: 860px){ .layout{ grid-template-columns:1fr; } .phone{ max-width:320px; margin:auto; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <h2 class="title">App Movil de Cliente</h2>
+  <p class="helper">Ejemplo para negocio con clientes recurrentes: asi se veria la app en uso real.</p>
+  <div class="layout">
+    <div class="phone">
+      <div class="screen">
+        <div class="item">Inicio y acceso seguro</div>
+        <div class="item">Estado de pedidos en tiempo real</div>
+        <div class="item">Pagos y comprobantes</div>
+        <div class="item">Soporte y notificaciones</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Pantalla del negocio - Resultado de simulacion</h3>
+      <div id="result" class="summary">Configurando experiencia móvil...</div>
+    </div>
+  </div>
+  <a class="back" href="../index.html">← Volver</a>
+</div>
+<script>
+function runDemo() {
+  const items = document.querySelectorAll(".item");
+  items.forEach((item, i) => setTimeout(() => item.classList.add("active"), i * 220));
+  setTimeout(() => {
+    document.getElementById("result").textContent = [
+      "Funciones listas:",
+      "- Perfil del cliente",
+      "- Estado del pedido",
+      "- Historial de pagos",
+      "- Centro de soporte",
+      "",
+      "Resultado:",
+      "- Atención más rápida.",
+      "- Menos carga para operación.",
+      "- Mejor experiencia del cliente."
+    ].join("\n");
+  }, 1100);
+}
+
+window.addEventListener("DOMContentLoaded", runDemo);
+</script>
+</body>
+</html>

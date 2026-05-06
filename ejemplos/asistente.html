@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo - App de IA para Operación</title>
+<style>
+body { margin: 0; background: #020617; color: #0f172a; font-family: "Courier New", monospace; }
+.wrapper { max-width: 1080px; margin: auto; padding: 2rem 1.2rem; }
+.title { color: #06b6d4; text-align: center; letter-spacing: .12em; margin-bottom: .6rem; }
+.helper { color: #cbd5e1; text-align: center; margin-bottom: 1.2rem; }
+.layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1rem; }
+.panel { background: #f8fafc; border: 1px solid rgba(6,182,212,.42); border-radius: 14px; padding: 1rem; }
+textarea { width: 100%; min-height: 150px; background: #ffffff; border: 1px solid rgba(6,182,212,.35); border-radius: 10px; color: #0f172a; padding: .8rem; resize: none; box-sizing: border-box; overflow-x: hidden; }
+.result { white-space: pre-line; font-size: .85rem; line-height: 1.55; min-height: 220px; }
+.chip { display: inline-block; padding: .3rem .5rem; border-radius: 8px; border: 1px solid rgba(6,182,212,.45); margin: .2rem .2rem 0 0; font-size: .72rem; color: #0e7490; }
+.back { display: block; text-align: center; color: #cbd5e1; margin-top: 1.6rem; }
+@media (max-width: 920px) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <h2 class="title">App de IA para Operación</h2>
+  <p class="helper">Ejemplo para soporte y ventas: asi se veria la priorizacion automatica en pantalla.</p>
+
+  <div class="layout">
+    <div class="panel">
+      <h3>Pantalla del equipo - Entradas del dia</h3>
+      <textarea id="input">Cliente A: pedido no llegó y solicita respuesta urgente.
+Cliente B: quiere cotización para paquete anual.
+Cliente C: reporte de error al pagar con tarjeta.
+Cliente D: consulta sobre tiempos de entrega.</textarea>
+      <div style="margin-top:.8rem;">
+        <span class="chip">Priorización automática</span>
+        <span class="chip">Clasificación por tipo</span>
+        <span class="chip">Acciones sugeridas</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Pantalla del negocio - Resultado de IA</h3>
+      <div id="output" class="result">Analizando entradas...</div>
+    </div>
+  </div>
+
+  <a class="back" href="../index.html">← Volver</a>
+</div>
+
+<script>
+function analyze(text) {
+  const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
+  const urgentes = lines.filter((l) => l.toLowerCase().includes("urgente") || l.toLowerCase().includes("error"));
+  const comerciales = lines.filter((l) => l.toLowerCase().includes("cotización") || l.toLowerCase().includes("cotizacion"));
+  const operativos = lines.filter((l) => l.toLowerCase().includes("pedido") || l.toLowerCase().includes("entrega"));
+
+  return [
+    "Resumen inteligente:",
+    `- Entradas procesadas: ${lines.length}`,
+    `- Casos urgentes: ${urgentes.length}`,
+    `- Oportunidades comerciales: ${comerciales.length}`,
+    `- Casos operativos: ${operativos.length}`,
+    "",
+    "Prioridad inmediata:",
+    urgentes.length ? `- ${urgentes[0]}` : "- Sin urgencias críticas detectadas.",
+    "",
+    "Acciones sugeridas:",
+    "- Asignar incidencia de pago al equipo de soporte.",
+    "- Enviar propuesta comercial al cliente con intención de compra.",
+    "- Confirmar estatus de pedido y comunicar tiempos de entrega.",
+    "",
+    "Resultado:",
+    "- Equipo con foco claro y respuesta más rápida al cliente."
+  ].join("\n");
+}
+
+function runDemo() {
+  const input = document.getElementById("input").value;
+  setTimeout(() => {
+    document.getElementById("output").textContent = analyze(input);
+  }, 420);
+}
+
+window.addEventListener("DOMContentLoaded", runDemo);
+</script>
+</body>
+</html>

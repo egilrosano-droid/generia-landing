@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo - Sitio Web Comercial</title>
+<style>
+body { margin: 0; background: #020617; color: #0f172a; font-family: "Courier New", monospace; }
+.wrapper { max-width: 980px; margin: auto; padding: 2rem 1.2rem; }
+.title { color: #3b82f6; letter-spacing: .12em; text-align: center; margin-bottom: .6rem; }
+.helper { color: #cbd5e1; text-align: center; margin-bottom: 1.4rem; }
+.layout { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.panel { background: #f8fafc; border: 1px solid rgba(59,130,246,.42); border-radius: 14px; padding: 1rem; }
+.stage { border:1px solid rgba(148,163,184,.38); border-radius:10px; padding:.7rem; margin-bottom:.6rem; opacity:.55; transition:.3s; background:#fff; }
+.stage.active { opacity: 1; border-color: rgba(59,130,246,.8); background: rgba(59,130,246,.08); }
+.summary { white-space: pre-line; font-size: .86rem; line-height: 1.55; }
+.back { display:block; text-align:center; color:#cbd5e1; margin-top:1.6rem; }
+@media (max-width: 800px){ .layout{ grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <h2 class="title">Sitio Web Comercial</h2>
+  <p class="helper">Ejemplo para negocio de servicios: vista de estructura orientada a conversion.</p>
+  <div class="layout">
+    <div class="panel">
+      <h3>Pantalla de diseño - Secciones recomendadas</h3>
+      <div class="stage">Hero: promesa principal y llamada a la acción</div>
+      <div class="stage">Servicios: soluciones y beneficios concretos</div>
+      <div class="stage">Casos: resultados y ejemplos visibles</div>
+      <div class="stage">Contacto: formulario y agendamiento rápido</div>
+    </div>
+    <div class="panel">
+      <h3>Pantalla del negocio - Resultado de simulacion</h3>
+      <div id="result" class="summary">Generando estructura comercial...</div>
+    </div>
+  </div>
+  <a class="back" href="../index.html">← Volver</a>
+</div>
+<script>
+function runDemo() {
+  const stages = document.querySelectorAll(".stage");
+  stages.forEach((item, i) => {
+    setTimeout(() => item.classList.add("active"), i * 240);
+  });
+
+  setTimeout(() => {
+    document.getElementById("result").textContent = [
+      "Mensaje principal:",
+      "\"Soluciones listas para vender más y operar mejor.\"",
+      "",
+      "CTA principal:",
+      "- Iniciar consulta",
+      "",
+      "Resultado:",
+      "- Sitio claro y persuasivo.",
+      "- Menos rebote por mensaje directo.",
+      "- Mayor tasa de contacto."
+    ].join("\n");
+  }, 1200);
+}
+
+window.addEventListener("DOMContentLoaded", runDemo);
+</script>
+</body>
+</html>

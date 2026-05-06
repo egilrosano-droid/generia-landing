@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GenérIA - Soluciones con Inteligencia</title>
+        <meta
+            name="description"
+            content="Soluciones digitales listas para operar: e-commerce, reservas, negocio, sitio web, app movil y app de IA."
+        />
+        <meta property="og:title" content="GenérIA - Soluciones con Inteligencia" />
+        <meta
+            property="og:description"
+            content="Conoce demos reales y solicita una propuesta para tu proyecto."
+        />
+        <meta property="og:type" content="website" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            body {
+                margin: 0;
+                background: #020617;
+                overflow-x: hidden;
+                overflow-y: auto;
+                font-family: "Courier New", Courier, monospace;
+            }
+
+            /* --- FONDO DE CÓDIGO PYTHON --- */
+            #terminal-wall {
+                position: fixed;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 0;
+                pointer-events: none;
+                opacity: 0.34;
+            }
+
+            .terminal {
+                width: min(88vw, 1080px);
+                height: min(84vh, 760px);
+                border-radius: 18px;
+                border: none;
+                background: radial-gradient(
+                    circle at top,
+                    rgba(15, 23, 42, 0.95),
+                    rgba(2, 6, 23, 0.99)
+                );
+                box-shadow: 0 0 80px rgba(6, 182, 212, 0.15);
+                overflow: hidden;
+                position: relative;
+            }
+
+            .code-container {
+                position: absolute;
+                left: 0;
+                width: 100%;
+                font-size: 12px;
+                line-height: 1.6;
+                white-space: pre;
+                padding: 0;
+                padding-left: clamp(1rem, 4vw, 2.4rem);
+                box-sizing: border-box;
+                will-change: transform;
+                animation: scrollCode 30s linear infinite;
+            }
+
+            .code-container.layer-a {
+                transform: translateY(100%);
+            }
+
+            .code-container.layer-b {
+                transform: translateY(0%);
+                animation-delay: -15s;
+            }
+
+            .code-keyword {
+                color: #7dd3fc;
+            }
+            .code-string {
+                color: #fbbf24;
+            }
+            .code-comment {
+                color: #64748b;
+                font-style: italic;
+            }
+            .code-func {
+                color: #a5b4fc;
+            }
+            .code-number {
+                color: #f472b6;
+            }
+
+            @keyframes scrollCode {
+                from {
+                    transform: translateY(100%);
+                }
+                to {
+                    transform: translateY(-100%);
+                }
+            }
+
+            /* --- HERO --- */
+            section {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 5rem;
+            }
+
+            .hero-top {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.85rem;
+                position: relative;
+                z-index: 20;
+                margin-top: -2.4rem;
+            }
+
+            #logo-container {
+                width: min(92vw, 1275px);
+                transform-style: preserve-3d;
+                transition: transform 0.2s ease-out;
+                animation: zoomIn 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s
+                    forwards;
+            }
+
+            #logo-img {
+                filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 1))
+                    drop-shadow(0 0 16px rgba(34, 211, 238, 0.45));
+                animation: logoGlow 3.2s ease-in-out 1.1s infinite;
+            }
+
+            @keyframes zoomIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.6) translateZ(-400px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) translateZ(0);
+                }
+            }
+
+            @keyframes logoGlow {
+                0%,
+                100% {
+                    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 1))
+                        drop-shadow(0 0 14px rgba(34, 211, 238, 0.35));
+                }
+                50% {
+                    filter: drop-shadow(0 22px 64px rgba(0, 0, 0, 1))
+                        drop-shadow(0 0 34px rgba(34, 211, 238, 0.95))
+                        drop-shadow(0 0 56px rgba(244, 114, 182, 0.35));
+                }
+            }
+
+            #hero .slogan {
+                margin-top: calc(-1.4rem - 5cm);
+                color: #ffffff;
+                letter-spacing: 0.8em;
+                text-transform: uppercase;
+                font-size: clamp(0.7rem, 1.5vw, 1.1rem);
+                font-weight: bold;
+                opacity: 0;
+                animation: fadeIn 1s ease-out 1.2s forwards;
+                text-align: center;
+                position: relative;
+                z-index: 20;
+                max-width: 92vw;
+            }
+
+            /* --- BOTÓN DE SCROLL --- */
+            .scroll-link {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 2.2rem;
+                padding-top: 2rem;
+                opacity: 0;
+                animation: fadeIn 1s ease-out 2s forwards;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                z-index: 10;
+                background: transparent;
+                backdrop-filter: none;
+                box-shadow: none;
+            }
+
+            @media (max-width: 900px) {
+                .hero-top {
+                    margin-top: -1.2rem;
+                }
+                #hero .slogan {
+                    margin-top: calc(-1.6rem - 5cm);
+                    letter-spacing: 0.5em;
+                }
+            }
+
+            .scroll-link:hover {
+                transform: translateX(-50%) translateY(5px);
+                color: #8be9fd;
+            }
+
+            #solutions {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-bottom: 3rem;
+                padding-top: 3.5rem;
+            }
+
+            .solutions-shell {
+                width: min(92vw, 1180px);
+                display: grid;
+                grid-template-columns: 1fr 1.2fr;
+                gap: 2rem;
+                margin-top: 1.5rem;
+            }
+
+            .solution-selector {
+                display: flex;
+                flex-direction: column;
+                gap: 0.9rem;
+            }
+
+            .solution-tab {
+                width: 100%;
+                text-align: left;
+                padding: 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba(71, 85, 105, 0.8);
+                background: rgba(2, 6, 23, 0.6);
+                transition: all 0.25s ease;
+                cursor: pointer;
+            }
+
+            .solution-tab:hover {
+                border-color: rgba(103, 232, 249, 0.7);
+            }
+
+            .solution-tab.is-active {
+                border-color: rgba(34, 211, 238, 0.9);
+                background: rgba(15, 23, 42, 0.8);
+                box-shadow: 0 0 18px rgba(34, 211, 238, 0.14);
+            }
+
+            .demo-panel {
+                background: rgba(2, 6, 23, 0.78);
+                border: 1px solid rgba(34, 211, 238, 0.2);
+                border-radius: 18px;
+                padding: 1.4rem;
+                backdrop-filter: blur(14px);
+            }
+
+            .demo-input {
+                width: 100%;
+                height: 140px;
+                background: rgba(2, 6, 23, 0.95);
+                border: 1px solid rgba(34, 211, 238, 0.35);
+                border-radius: 12px;
+                padding: 0.9rem;
+                color: #e2e8f0;
+                resize: none;
+                font-size: 0.8rem;
+                line-height: 1.5;
+                outline: none;
+            }
+
+            .demo-input:focus {
+                border-color: rgba(103, 232, 249, 0.85);
+            }
+
+            .demo-output {
+                min-height: 180px;
+                background: rgba(2, 6, 23, 0.92);
+                border: 1px solid rgba(34, 211, 238, 0.2);
+                border-radius: 12px;
+                padding: 0.9rem;
+                font-size: 0.75rem;
+                line-height: 1.55;
+                white-space: pre-line;
+                color: #e2e8f0;
+            }
+
+            .demo-run {
+                width: 100%;
+                margin-top: 0.9rem;
+                padding: 0.8rem;
+                border-radius: 10px;
+                border: 1px solid rgba(34, 211, 238, 0.65);
+                color: #a5f3fc;
+                text-transform: uppercase;
+                letter-spacing: 0.24em;
+                font-size: 0.62rem;
+                background: rgba(2, 6, 23, 0.9);
+                transition: all 0.25s ease;
+                cursor: pointer;
+            }
+
+            .demo-run:hover {
+                background: rgba(34, 211, 238, 0.12);
+            }
+
+            @media (max-width: 900px) {
+                .solutions-shell {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 768px) {
+                #logo-container {
+                    width: min(96vw, 760px);
+                }
+                .hero-top {
+                    margin-top: -0.4rem;
+                }
+                #hero .slogan {
+                    margin-top: calc(0.3rem - 5cm);
+                    letter-spacing: 0.28em;
+                    font-size: 0.74rem;
+                    padding: 0 0.6rem;
+                }
+                .scroll-link {
+                    bottom: 1.2rem;
+                }
+                #solutions {
+                    padding-top: 2.4rem;
+                }
+            }
+
+            /* --- BOTÓN DE CONTACTO (CTA) --- */
+            .cta-button {
+                margin-top: 3rem;
+                padding: 1rem 3rem;
+                position: relative;
+                opacity: 1;
+                z-index: 30;
+                background: rgba(1, 9, 24, 0.95);
+                border: 1px solid rgba(6, 182, 212, 0.7);
+                color: #8bf0ff;
+                text-transform: uppercase;
+                letter-spacing: 0.4em;
+                font-size: 0.8rem;
+                border-radius: 4px;
+                box-shadow:
+                    0 0 24px rgba(6, 182, 212, 0.28),
+                    inset 0 0 18px rgba(6, 182, 212, 0.12);
+                transition:
+                    transform 0.3s ease,
+                    background 0.3s ease,
+                    box-shadow 0.3s ease;
+                cursor: pointer;
+            }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                background: rgba(6, 182, 212, 0.14);
+                box-shadow:
+                    0 0 30px rgba(6, 182, 212, 0.45),
+                    inset 0 0 22px rgba(6, 182, 212, 0.16);
+            }
+
+            .cta-button:hover {
+                background: #ff79c6;
+                color: #020617;
+                box-shadow: 0 0 20px rgba(255, 121, 198, 0.4);
+            }
+
+            .cta-stack {
+                margin-top: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
+                width: 100%;
+                max-width: 360px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta-stack .cta-button {
+                margin-top: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .contact-inline {
+                margin-top: 1rem;
+                text-align: center;
+                font-size: 0.76rem;
+                color: #94a3b8;
+                line-height: 1.5;
+            }
+            .contact-inline a {
+                color: #67e8f9;
+                text-decoration: underline;
+            }
+
+            @keyframes fadeIn {
+                to {
+                    opacity: 0.7;
+                }
+            }
+        </style>
+    </head>
+    <body class="text-white">
+        <div id="terminal-wall"></div>
+
+        <section id="hero">
+            <div class="hero-top">
+                <div id="logo-container">
+                    <img
+                        src="./logo/getgeneria_logo.png"
+                        id="logo-img"
+                        alt="GenérIA Logo"
+                        class="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,1)]"
+                    />
+                </div>
+                <p class="slogan">resultados claros, visibles y accionables</p>
+            </div>
+
+            <a
+                href="#solutions"
+                class="scroll-link flex flex-col items-center px-3 py-2"
+            >
+                <p class="text-[9px] tracking-[0.5em] uppercase mb-2">
+                    Ver Proyectos
+                </p>
+                <div class="animate-bounce">↓</div>
+            </a>
+        </section>
+
+        <section id="solutions">
+            <h2
+                class="text-2xl md:text-4xl tracking-[0.6em] uppercase font-bold text-cyan-400 mb-4"
+            >
+                Proyectos en acción
+            </h2>
+            <div class="w-32 h-1 bg-cyan-500/20 mb-10"></div>
+
+            <div class="solutions-shell">
+                <div class="solution-selector">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-slate-400 mb-1">
+                        Elige un resultado
+                    </p>
+                    <button class="solution-tab is-active" data-mode="ecommerce">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">E-commerce</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Tienda digital lista para vender, cobrar y gestionar pedidos.
+                        </p>
+                    </button>
+                    <button class="solution-tab" data-mode="reservas">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">Reservas</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Agenda de citas con disponibilidad y confirmaciones inmediatas.
+                        </p>
+                    </button>
+                    <button class="solution-tab" data-mode="negocio">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">Negocios</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Seguimiento comercial y control operativo en un solo lugar.
+                        </p>
+                    </button>
+                    <button class="solution-tab" data-mode="sitio">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">Sitios Web</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Sitio comercial enfocado en convertir visitas en oportunidades.
+                        </p>
+                    </button>
+                    <button class="solution-tab" data-mode="movil">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">Apps Móviles</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Aplicaciones para clientes o equipos con funciones del negocio.
+                        </p>
+                    </button>
+                    <button class="solution-tab" data-mode="ia">
+                        <span class="text-[10px] tracking-[0.2em] uppercase text-cyan-300">Apps de IA</span>
+                        <p class="text-sm text-slate-200 mt-2">
+                            Soluciones que analizan información y generan acciones útiles.
+                        </p>
+                    </button>
+                </div>
+
+                <div class="demo-panel">
+                    <p class="text-[10px] uppercase tracking-[0.35em] text-slate-400 mb-3">
+                        Entrada
+                    </p>
+                    <textarea
+                        id="demo-input"
+                        class="demo-input"
+                        spellcheck="false"
+                    ></textarea>
+                    <button id="demo-run" class="demo-run">Ejecutar ejemplo</button>
+                    <p id="demo-status" class="mt-3 text-[11px] text-slate-400">
+                        Escribe un caso real y observa una salida de ejemplo.
+                    </p>
+                    <p class="text-[10px] uppercase tracking-[0.35em] text-slate-400 mt-5 mb-2">
+                        Resultado
+                    </p>
+                    <div id="demo-output" class="demo-output">
+                        Elige un proyecto y ejecuta la simulacion.
+                    </div>
+                    <div class="cta-stack">
+                        <a
+                            id="demo-full-link"
+                            href="ejemplos/reporte.html"
+                            class="cta-button inline-block text-center"
+                            >Ver demo completo</a
+                        >
+                        <a
+                            href="consulta.html"
+                            class="cta-button inline-block text-center"
+                            >Iniciar Consulta</a
+                        >
+                    </div>
+                    <div class="contact-inline">
+                        Contacto: <a href="mailto:info@getgeneria.com">info@getgeneria.com</a> |
+                        WhatsApp: <a href="https://wa.me/525540273270">+52 55 4027 3270</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Evita salto automático al refrescar
+            window.location.hash = "";
+            window.scrollTo(0, 0);
+            // Fondo dinamico con codigo estilo Python
+            const pythonSnippets = [
+                `<span class="code-comment"># Flujo continuo de resultados</span>`,
+                `<span class="code-keyword">def</span> <span class="code-func">generar_reporte</span>(ventas):`,
+                `    total = <span class="code-number">0</span>`,
+                `    resumen = []`,
+                ``,
+                `    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> ventas:`,
+                `        total += item["monto"]`,
+                `        resumen.append(f"{item['nombre']}: {item['monto']}")`,
+                ``,
+                `    <span class="code-keyword">return</span> {`,
+                `        "total": total,`,
+                `        "top_items": resumen[:<span class="code-number">3</span>]`,
+                `    }`,
+                ``,
+                `<span class="code-comment"># Entrada desordenada -> informacion util</span>`,
+                `<span class="code-keyword">def</span> <span class="code-func">clasificar_eventos</span>(lineas):`,
+                `    pendientes = [l <span class="code-keyword">for</span> l <span class="code-keyword">in</span> lineas <span class="code-keyword">if</span> "pendiente" <span class="code-keyword">in</span> l]`,
+                `    errores = [l <span class="code-keyword">for</span> l <span class="code-keyword">in</span> lineas <span class="code-keyword">if</span> "error" <span class="code-keyword">in</span> l]`,
+                `    <span class="code-keyword">return</span> pendientes, errores`,
+                ``,
+                `<span class="code-comment"># Evento unico -> cadena automatizada</span>`,
+                `<span class="code-keyword">def</span> <span class="code-func">orquestar_proceso</span>(evento):`,
+                `    acciones = ["inventario", "erp", "logistica", "notificacion_cliente"]`,
+                `    <span class="code-keyword">for</span> paso <span class="code-keyword">in</span> acciones:`,
+                `        print(<span class="code-string">f"ejecutando {paso}"</span>)`,
+                ``,
+                `ventas_diarias = [{"nombre": "Producto A", "monto": <span class="code-number">12000</span>}, {"nombre": "Producto B", "monto": <span class="code-number">8000</span>}]`,
+                `reporte = generar_reporte(ventas_diarias)`,
+                `print(<span class="code-string">"TOTAL"</span>, reporte["total"])`,
+            ];
+
+            function createBackground() {
+                const wall = document.getElementById("terminal-wall");
+                if (!wall || wall.childElementCount > 0) {
+                    return;
+                }
+                const terminal = document.createElement("div");
+                terminal.className = "terminal";
+                const block = pythonSnippets.join("<br>") + "<br><br>";
+                const repeated = block.repeat(10);
+
+                const layerA = document.createElement("div");
+                layerA.className = "code-container layer-a";
+                layerA.innerHTML = repeated;
+
+                const layerB = document.createElement("div");
+                layerB.className = "code-container layer-b";
+                layerB.innerHTML = repeated;
+
+                terminal.appendChild(layerA);
+                terminal.appendChild(layerB);
+                wall.appendChild(terminal);
+            }
+            createBackground();
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", createBackground);
+            } else {
+                requestAnimationFrame(createBackground);
+            }
+
+            // Tilt del Logo
+            const container = document.getElementById("logo-container");
+            document.addEventListener("mousemove", (e) => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                const deltaX = (clientX - innerWidth / 2) / (innerWidth / 2);
+                const deltaY = (clientY - innerHeight / 2) / (innerHeight / 2);
+                container.style.transform = `rotateX(${deltaY * -12}deg) rotateY(${deltaX * 12}deg)`;
+            });
+
+            // Demo interactiva por tipo de resultado
+            const presets = {
+                ecommerce: {
+                    demoUrl: "ejemplos/ecommerce.html",
+                    input: `Productos:\n- Tenis urbanos / 1290 / stock 22\n- Sudadera unisex / 890 / stock 8\n- Gorra clasica / 450 / stock 3\nObjetivo: mejorar conversion y seguimiento de pedidos.`,
+                    run(value) {
+                        return [
+                            ">> Solucion E-commerce",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Catalogo organizado con filtros por categoria.",
+                            "  - Checkout simplificado para reducir abandono.",
+                            "  - Panel de pedidos con estado y alertas de stock bajo.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Mayor conversion y control de inventario en tiempo real.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+                reservas: {
+                    demoUrl: "ejemplos/reservas.html",
+                    input: `Servicios:\n- Consulta inicial (45 min)\n- Seguimiento (30 min)\nHorarios activos:\nLunes a Viernes 09:00 a 18:00`,
+                    run(value) {
+                        return [
+                            ">> Solucion de Reservas",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Agenda de disponibilidad actualizada por bloque horario.",
+                            "  - Confirmacion instantanea para cada cita.",
+                            "  - Recordatorio automatico para reducir ausencias.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Menos cancelaciones de ultimo minuto y mejor ocupacion.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+                negocio: {
+                    demoUrl: "ejemplos/negocio.html",
+                    input: `Pendientes del dia:\n- 12 clientes por contactar\n- 4 cotizaciones por enviar\n- 2 pagos vencidos por seguimiento`,
+                    run(value) {
+                        return [
+                            ">> Solucion para Negocio",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Tablero diario con prioridades comerciales.",
+                            "  - Seguimiento de clientes con estado por etapa.",
+                            "  - Resumen ejecutivo para tomar decisiones rapidas.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Operacion ordenada y mayor tasa de cierre.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+                sitio: {
+                    demoUrl: "ejemplos/sitio.html",
+                    input: `Negocio: clinica de fisioterapia\nObjetivo: captar nuevos pacientes\nAccion principal: agendar valoracion`,
+                    run(value) {
+                        return [
+                            ">> Solucion de Sitio Web",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Pagina principal con mensaje claro de valor.",
+                            "  - Seccion de servicios y beneficios por tipo de cliente.",
+                            "  - Formulario de contacto con llamada directa a la accion.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Mas solicitudes calificadas desde el sitio.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+                movil: {
+                    demoUrl: "ejemplos/movil.html",
+                    input: `Necesidad:\n- App para clientes que permita consultar pedidos, pagos y soporte.\n- Notificaciones para actualizaciones importantes.`,
+                    run(value) {
+                        return [
+                            ">> Solucion de App Movil",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Acceso por usuario con panel personal.",
+                            "  - Consulta de pedidos y estado en tiempo real.",
+                            "  - Centro de notificaciones y atencion desde la app.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Mejor experiencia de cliente y menos carga operativa.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+                ia: {
+                    demoUrl: "ejemplos/asistente.html",
+                    input: `Informacion de clientes:\n- 43 mensajes sin clasificar\n- 12 solicitudes urgentes\n- 8 oportunidades de venta cruzada`,
+                    run(value) {
+                        return [
+                            ">> Solucion de IA Aplicada",
+                            "",
+                            "Resultado sugerido:",
+                            "  - Clasificacion automatica por prioridad y tema.",
+                            "  - Resumen diario con alertas y oportunidades.",
+                            "  - Recomendaciones accionables para el equipo.",
+                            "",
+                            "Impacto esperado:",
+                            "  - Respuesta mas rapida y decisiones con contexto.",
+                            "",
+                            "Entrada recibida:",
+                            value,
+                        ].join("\n");
+                    },
+                },
+            };
+
+            const inputEl = document.getElementById("demo-input");
+            const outputEl = document.getElementById("demo-output");
+            const tabs = document.querySelectorAll(".solution-tab");
+            const runButton = document.getElementById("demo-run");
+            const fullDemoLink = document.getElementById("demo-full-link");
+            const consultaLink = document.querySelector('a[href="consulta.html"]');
+            let currentMode = "ecommerce";
+
+            const trackEvent = (eventName, details = {}) => {
+                const key = "generia_metrics";
+                const events = JSON.parse(localStorage.getItem(key) || "[]");
+                events.push({
+                    event: eventName,
+                    details,
+                    ts: new Date().toISOString(),
+                });
+                localStorage.setItem(key, JSON.stringify(events.slice(-200)));
+            };
+
+            function setMode(mode) {
+                currentMode = mode;
+                tabs.forEach((tab) => {
+                    tab.classList.toggle("is-active", tab.dataset.mode === mode);
+                });
+                inputEl.value = presets[mode].input;
+                fullDemoLink.href = presets[mode].demoUrl;
+                outputEl.textContent = "Listo para ejecutar el ejemplo.";
+            }
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    setMode(tab.dataset.mode);
+                    trackEvent("select_project_mode", { mode: tab.dataset.mode });
+                });
+            });
+
+            runButton.addEventListener("click", () => {
+                const value = inputEl.value || presets[currentMode].input;
+                outputEl.textContent = presets[currentMode].run(value);
+                trackEvent("run_demo_preview", { mode: currentMode });
+            });
+
+            fullDemoLink.addEventListener("click", () => {
+                trackEvent("open_full_demo", {
+                    mode: currentMode,
+                    target: fullDemoLink.getAttribute("href"),
+                });
+            });
+
+            if (consultaLink) {
+                consultaLink.addEventListener("click", () => {
+                    trackEvent("open_consulta", { from: "index" });
+                });
+            }
+
+            setMode("ecommerce");
+        </script>
+    </body>
+</html>

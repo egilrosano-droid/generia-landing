@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ejemplo - Análisis de Ventas</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    margin: 0;
+    background: #020617;
+    font-family: "Courier New", monospace;
+    color: white;
+}
+
+.wrapper {
+    max-width: 720px;
+    margin: auto;
+    padding: 2rem 1.5rem;
+}
+
+.title {
+    font-size: 1.6rem;
+    color: #00ffff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+textarea {
+    width: 100%;
+    height: 140px;
+    background: rgba(15,23,42,0.7);
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 10px;
+    padding: 1rem;
+    color: white;
+    resize: none;
+    outline: none;
+}
+
+.cta {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid rgba(0,255,255,0.4);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.3);
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.2em;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    color: #00ffff;
+    border-color: #00ffff;
+    background: rgba(0,255,255,0.08);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+.result {
+    margin-top: 2rem;
+    padding: 1.2rem;
+    background: rgba(15,23,42,0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(0,255,255,0.2);
+    min-height: 120px;
+}
+
+canvas {
+    margin-top: 2rem;
+    max-height: 300px;
+}
+
+.back {
+    margin-top: 2rem;
+    display: block;
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.2em;
+}
+
+.back:hover {
+    color: #00ffff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="title">
+Análisis rápido de ventas
+</div>
+
+<textarea id="input">
+Producto A 12000
+Producto B 8000
+Producto C 15000
+</textarea>
+
+<button class="cta" onclick="generarReporte()">
+Generar Reporte
+</button>
+
+<div id="output" class="result">
+Presiona "Generar Reporte" para ver el análisis.
+</div>
+
+<canvas id="chart"></canvas>
+
+<a href="../index.html" class="back">
+← Volver
+</a>
+
+</div>
+
+<script>
+
+let chartInstance = null;
+
+function generarReporte() {
+    const input = document.getElementById("input").value.trim();
+
+    if (!input) {
+        document.getElementById("output").innerText = "Ingresa datos para generar el reporte.";
+        return;
+    }
+
+    const lines = input.split("\n");
+
+    let total = 0;
+    let items = [];
+
+    lines.forEach(line => {
+        const parts = line.trim().split(" ");
+        const value = parseFloat(parts.pop());
+        const name = parts.join(" ");
+
+        if (!isNaN(value)) {
+            total += value;
+            items.push({ name, value });
+        }
+    });
+
+    if (items.length === 0) {
+        document.getElementById("output").innerText = "Formato incorrecto.";
+        return;
+    }
+
+    items.sort((a, b) => b.value - a.value);
+
+    // 🔥 OUTPUT HTML ALINEADO
+    let html = `<div style="font-weight:bold;margin-bottom:10px;">
+📊 ANÁLISIS DE VENTAS
+</div>`;
+
+    html += `<div style="margin-bottom:10px;">
+Total ventas: <strong>$${total.toLocaleString()}</strong>
+</div>`;
+
+    html += `<div style="margin-bottom:6px;">Ranking:</div>`;
+
+    items.forEach((item, i) => {
+        const percent = ((item.value / total) * 100).toFixed(1);
+
+        html += `
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            padding:4px 0;
+            font-family: monospace;
+        ">
+            <span>${i + 1}. ${item.name}</span>
+            <span style="
+                display:inline-block;
+                min-width:120px;
+                text-align:right;
+                font-variant-numeric: tabular-nums;
+            ">
+                $${item.value.toLocaleString()} → ${percent}%
+            </span>
+        </div>`;
+    });
+
+    document.getElementById("output").innerHTML = html;
+
+    renderChart(items);
+}
+
+function renderChart(items) {
+    const ctx = document.getElementById("chart").getContext("2d");
+
+    const labels = items.map(i => i.name);
+    const data = items.map(i => i.value);
+
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+    "#00eaff",
+    "#50fa7b",
+    "#bd93f9",
+    "#ff79c6",
+    "#f1fa8c"
+],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#aaa"
+                    },
+                    grid: {
+                        color: "rgba(255,255,255,0.05)"
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: "#fff"
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+window.addEventListener("DOMContentLoaded", generarReporte);
+
+</script>
+
+</body>
+</html>

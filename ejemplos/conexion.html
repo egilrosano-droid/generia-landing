@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Conexión de Sistemas</title>
+
+<style>
+body {
+    margin: 0;
+    background: #020617;
+    color: white;
+    font-family: "Courier New", monospace;
+}
+
+/* CONTENEDOR */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* TITULOS */
+.title {
+    color: #00ffff;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+}
+
+.helper {
+    color: #aaa;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+/* BOTÓN */
+.btn {
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0,255,255,0.4);
+    border-radius: 12px;
+    background: rgba(0,255,255,0.08);
+    cursor: pointer;
+    color: white;
+}
+
+.btn:hover {
+    border-color: #00ffff;
+    background: rgba(0,255,255,0.15);
+}
+
+/* LAYOUT */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: center;
+}
+
+/* FLOW */
+.flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.node {
+    min-width: 140px;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,255,0.25);
+    background: rgba(0,255,255,0.05);
+    font-size: 0.75rem;
+
+    opacity: 0;
+    transform: scale(0.9);
+    transition: 0.4s;
+}
+
+.node.active {
+    opacity: 1;
+    transform: scale(1.05);
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+
+.arrow {
+    color: #00ffff;
+    opacity: 0.2;
+    transition: 0.3s;
+}
+
+.arrow.active {
+    opacity: 1;
+}
+
+/* RESULTADO */
+.result-box {
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(0,255,255,0.2);
+    background: rgba(15,23,42,0.8);
+    text-align: left;
+    min-height: 260px;
+    white-space: pre-line;
+}
+
+/* MÉTRICAS */
+.metrics {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.metric {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(0,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.2);
+    font-size: 0.8rem;
+}
+
+.metric strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #00ffff;
+}
+
+/* VOLVER */
+.back {
+    margin-top: 3rem;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 class="title">Conexión automática de sistemas</h2>
+
+<p class="helper">
+Un solo evento activa todo el proceso sin intervención manual.
+</p>
+
+<button class="btn" onclick="conectar()">
+Simular proceso
+</button>
+
+<div class="layout">
+
+<!-- IZQUIERDA: FLOW -->
+<div>
+
+<div id="flow" class="flow">
+
+<div class="node">Cliente entra</div>
+<div class="arrow">→</div>
+
+<div class="node">Datos capturados</div>
+<div class="arrow">→</div>
+
+<div class="node">Propuesta generada</div>
+<div class="arrow">→</div>
+
+<div class="node">Correo enviado</div>
+<div class="arrow">→</div>
+
+<div class="node">Seguimiento activo</div>
+
+</div>
+
+</div>
+
+<!-- DERECHA: RESULTADO -->
+<div>
+
+<div id="result" class="result-box">
+Esperando proceso...
+</div>
+
+<div class="metrics">
+
+<div class="metric">
+<strong id="m1">0</strong>
+Clientes procesados
+</div>
+
+<div class="metric">
+<strong id="m2">0%</strong>
+Tiempo ahorrado
+</div>
+
+<div class="metric">
+<strong id="m3">0</strong>
+Tareas automatizadas
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<button class="btn" onclick="resetFlow()">
+Nuevo cliente
+</button>
+
+<div class="back">
+← <a href="../index.html">Volver</a>
+</div>
+
+</div>
+
+function resetFlow() {
+    localStorage.removeItem("clienteData");
+    window.location.href = "captura.html";
+}
+
+<script>
+
+const data = JSON.parse(localStorage.getItem("clienteData"));
+
+function conectar() {
+
+    const nodes = document.querySelectorAll(".node");
+    const arrows = document.querySelectorAll(".arrow");
+
+    const result = document.getElementById("result");
+
+    nodes.forEach(n => n.classList.remove("active"));
+    arrows.forEach(a => a.classList.remove("active"));
+
+    result.innerText = "Iniciando proceso...\n";
+
+    const cliente = data?.nombre || "Cliente";
+
+    const mensajes = [
+        `✔ ${cliente} registrado automáticamente`,
+        "✔ Información guardada en sistema",
+        "✔ Propuesta generada",
+        "✔ Correo enviado al cliente",
+        "✔ Seguimiento activado"
+    ];
+
+    nodes.forEach((node, i) => {
+
+        setTimeout(() => {
+
+            node.classList.add("active");
+
+            if (arrows[i]) {
+                arrows[i].classList.add("active");
+            }
+
+            result.innerText += mensajes[i] + "\n";
+
+            // métricas dinámicas
+            if (i === 2) {
+                document.getElementById("m3").innerText = "3";
+            }
+
+            if (i === 3) {
+                document.getElementById("m1").innerText = data ? "1" : "0";
+            }
+
+            if (i === 4) {
+                document.getElementById("m2").innerText = "80%";
+                result.innerText += "\nProceso completado sin intervención manual.";
+            }
+
+        }, i * 600);
+
+    });
+}
+
+</script>
+
+</body>
+</html>
