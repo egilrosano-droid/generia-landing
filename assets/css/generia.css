@@ -19,7 +19,6 @@
     --radius-xl: 1.25rem;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.35);
     --header-h: 4.5rem;
-    --header-logo-h: 2.85rem;
     --container: min(1120px, calc(100vw - 2rem));
     --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,6 +32,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -109,10 +109,11 @@ a {
     letter-spacing: -0.02em;
 }
 
-.site-header .brand img {
-    height: var(--header-logo-h);
-    width: auto;
-    max-height: calc(var(--header-h) - 1.25rem);
+.brand.brand-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--text);
 }
 
 .site-footer .brand img {
@@ -143,6 +144,12 @@ a {
 .nav-desktop a:hover {
     color: var(--text);
     background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-desktop a.is-active,
+.nav-mobile a.is-active {
+    color: var(--text);
+    background: rgba(99, 102, 241, 0.12);
 }
 
 .header-actions {
@@ -295,16 +302,41 @@ main {
 section {
     position: relative;
     z-index: 1;
-    padding: clamp(4.5rem, 10vw, 6.5rem) 0;
-    scroll-margin-top: calc(var(--header-h) + 0.5rem);
+    scroll-margin-top: var(--header-h);
 }
 
 main > section:not(.hero) {
     background: var(--bg);
 }
 
+/* Full-viewport panels (Careflow-style) */
+main > section.section-panel {
+    min-height: 100dvh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(var(--header-h) + 1.5rem) 0 2.5rem;
+    scroll-snap-align: start;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+main > section.section-panel > .container {
+    flex: 0 1 auto;
+    width: 100%;
+}
+
+main > section.section-panel--tall {
+    justify-content: flex-start;
+    padding-top: calc(var(--header-h) + 2rem);
+    padding-bottom: 3rem;
+    min-height: max(100dvh, auto);
+    overflow: visible;
+}
+
 .section-header {
-    margin-bottom: clamp(2rem, 5vw, 3rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .section-header.center {
@@ -317,33 +349,32 @@ main > section:not(.hero) {
 
 /* —— Hero —— */
 .hero {
-    padding-top: calc(var(--header-h) + clamp(1.75rem, 5vw, 2.75rem));
-    padding-bottom: clamp(3.5rem, 8vw, 5rem);
-    min-height: 0;
-    display: flex;
-    align-items: center;
     overflow: hidden;
     z-index: 0;
 }
 
-.hero-intro {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: center;
+.hero-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.hero-logo {
+.hero.section-panel {
+    justify-content: flex-start;
+}
+
+.hero.section-panel .hero-logo {
     display: block;
-    width: min(100%, 14rem);
+    width: min(100%, 42rem);
     height: auto;
-    margin-inline: auto;
+    margin: 0 0 1.25rem;
+    object-fit: contain;
 }
 
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 6vw, 3.5rem);
+    gap: clamp(2rem, 5vw, 3rem);
     align-items: center;
 }
 
@@ -440,30 +471,19 @@ main > section:not(.hero) {
     backdrop-filter: blur(8px);
 }
 
-@media (min-width: 640px) {
-    .hero-intro {
-        grid-template-columns: auto 1fr;
-        gap: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
-        align-items: center;
-    }
-
-    .hero-logo {
-        width: auto;
-        height: clamp(6.5rem, 16vw, 9.5rem);
-        max-width: min(38vw, 15rem);
-        margin-inline: 0;
-        object-fit: contain;
-        align-self: center;
-    }
-}
-
 @media (min-width: 900px) {
     .hero-grid {
         grid-template-columns: 1.05fr 0.95fr;
     }
+
+    .hero-logo {
+        width: min(100%, 36rem);
+        margin-bottom: 1rem;
+    }
+
     .mockup-stack {
         margin-inline: 0 0 auto;
-        max-height: 400px;
+        max-height: min(42vh, 380px);
     }
 }
 
@@ -660,7 +680,7 @@ main > section:not(.hero) {
 
 /* —— Contact —— */
 .contact-section {
-    border-top: 1px solid var(--border);
+    border-top: none;
 }
 
 .contact-panel {

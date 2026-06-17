@@ -31,6 +31,35 @@
         });
     }
 
+    const sectionIds = ["soluciones", "productos", "proceso", "contacto"];
+    const navAnchors = document.querySelectorAll(
+        '.nav-desktop a[href^="#"], .nav-mobile a[href^="#"]'
+    );
+    const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+    if (sections.length && navAnchors.length) {
+        const setActive = (id) => {
+            navAnchors.forEach((a) => {
+                const href = a.getAttribute("href");
+                a.classList.toggle("is-active", href === `#${id}`);
+            });
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter((e) => e.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                if (visible[0]) setActive(visible[0].target.id);
+            },
+            { rootMargin: `-${header ? header.offsetHeight : 72}px 0px -45% 0px`, threshold: [0.15, 0.35, 0.55] }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+    }
+
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
         contactForm.addEventListener("submit", (e) => {
