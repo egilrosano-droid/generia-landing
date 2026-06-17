@@ -2,8 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const CONTACT = window.GENERIA_CONTACT || {
         email: "info@getgeneria.com",
-        phoneDisplay: "+52 55 4027 3270",
-        phoneDigits: "525540273270",
+        phoneDisplay: "+52 56 7127 6611",
+        phoneDigits: "525671276611",
     };
 
     const form = document.getElementById("consulta-form");
