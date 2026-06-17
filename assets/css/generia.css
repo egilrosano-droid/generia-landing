@@ -597,15 +597,17 @@ main > section.section-panel--tall > .container {
 
 .product-card .product-shot {
     aspect-ratio: 16 / 10;
-    background: var(--bg-elevated);
+    background: #0f1114;
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
 }
 
 .product-card .product-shot img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: top center;
 }
 
 .product-card .product-body {
