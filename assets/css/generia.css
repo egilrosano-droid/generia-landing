@@ -18,7 +18,7 @@
     --radius-lg: 1rem;
     --radius-xl: 1.25rem;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.35);
-    --header-h: 4rem;
+    --header-h: 9rem;
     --container: min(1120px, calc(100vw - 2rem));
     --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -108,9 +108,20 @@ a {
     letter-spacing: -0.02em;
 }
 
-.brand img {
+.site-header .brand img {
+    height: 8rem;
+    width: auto;
+}
+
+.site-footer .brand img {
     height: 2rem;
     width: auto;
+}
+
+@media (max-width: 768px) {
+    .site-footer .brand img {
+        height: 1.75rem;
+    }
 }
 
 .nav-desktop {
