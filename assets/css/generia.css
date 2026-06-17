@@ -293,7 +293,14 @@ main {
 }
 
 section {
-    padding: clamp(4rem, 10vw, 6rem) 0;
+    position: relative;
+    z-index: 1;
+    padding: clamp(4.5rem, 10vw, 6.5rem) 0;
+    scroll-margin-top: calc(var(--header-h) + 0.5rem);
+}
+
+main > section:not(.hero) {
+    background: var(--bg);
 }
 
 .section-header {
@@ -310,17 +317,33 @@ section {
 
 /* —— Hero —— */
 .hero {
-    padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 3.25rem));
-    padding-bottom: clamp(3rem, 8vw, 5rem);
-    min-height: min(100vh, 900px);
+    padding-top: calc(var(--header-h) + clamp(1.75rem, 5vw, 2.75rem));
+    padding-bottom: clamp(3.5rem, 8vw, 5rem);
+    min-height: 0;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.hero-logo {
+    display: block;
+    width: min(100%, 14rem);
+    height: auto;
+    margin-inline: auto;
 }
 
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 6vw, 4rem);
+    gap: clamp(2.5rem, 6vw, 3.5rem);
     align-items: center;
 }
 
@@ -348,7 +371,10 @@ section {
 
 .hero-visual {
     position: relative;
-    min-height: 280px;
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+    overflow: hidden;
 }
 
 .mockup-stack {
@@ -357,6 +383,7 @@ section {
     max-width: 520px;
     margin-inline: auto;
     aspect-ratio: 4 / 3;
+    max-height: min(52vw, 380px);
 }
 
 .mockup-card {
@@ -377,25 +404,25 @@ section {
 }
 
 .mockup-card--careflow {
-    width: 72%;
-    top: 0;
-    left: 0;
+    width: 66%;
+    top: 4%;
+    left: 2%;
     z-index: 3;
     transform: rotate(-2deg);
 }
 
 .mockup-card--axiora {
-    width: 68%;
-    top: 18%;
-    right: 0;
+    width: 62%;
+    top: 22%;
+    right: 2%;
     z-index: 2;
     transform: rotate(3deg);
 }
 
 .mockup-card--aulaiq {
-    width: 64%;
-    bottom: 0;
-    left: 18%;
+    width: 58%;
+    bottom: 4%;
+    left: 20%;
     z-index: 1;
     transform: rotate(-1deg);
 }
@@ -413,12 +440,30 @@ section {
     backdrop-filter: blur(8px);
 }
 
+@media (min-width: 640px) {
+    .hero-intro {
+        grid-template-columns: auto 1fr;
+        gap: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
+        align-items: center;
+    }
+
+    .hero-logo {
+        width: auto;
+        height: clamp(6.5rem, 16vw, 9.5rem);
+        max-width: min(38vw, 15rem);
+        margin-inline: 0;
+        object-fit: contain;
+        align-self: center;
+    }
+}
+
 @media (min-width: 900px) {
     .hero-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1.05fr 0.95fr;
     }
     .mockup-stack {
         margin-inline: 0 0 auto;
+        max-height: 400px;
     }
 }
 
