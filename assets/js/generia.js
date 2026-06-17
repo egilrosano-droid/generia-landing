@@ -60,6 +60,44 @@
         sections.forEach((section) => observer.observe(section));
     }
 
+    document.querySelectorAll("[data-product-carousel]").forEach((carousel) => {
+        const track = carousel.querySelector(".product-carousel-track");
+        const dots = carousel.querySelectorAll(".product-carousel-dot");
+        const total = dots.length;
+        if (!track || !total) return;
+
+        let index = 0;
+        let timer;
+
+        const goTo = (next) => {
+            index = ((next % total) + total) % total;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                const active = i === index;
+                dot.classList.toggle("is-active", active);
+                dot.setAttribute("aria-selected", active ? "true" : "false");
+            });
+        };
+
+        const startTimer = () => {
+            clearInterval(timer);
+            timer = setInterval(() => goTo(index + 1), 5000);
+        };
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+                goTo(i);
+                startTimer();
+            });
+        });
+
+        carousel.addEventListener("mouseenter", () => clearInterval(timer));
+        carousel.addEventListener("mouseleave", startTimer);
+
+        goTo(0);
+        startTimer();
+    });
+
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
         contactForm.addEventListener("submit", (e) => {

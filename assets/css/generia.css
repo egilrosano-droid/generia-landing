@@ -610,6 +610,59 @@ main > section.section-panel--tall > .container {
     object-position: top center;
 }
 
+.product-shot.product-carousel {
+    position: relative;
+}
+
+.product-carousel-viewport {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.product-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.45s var(--ease);
+}
+
+.product-carousel-slide {
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.product-carousel-dots {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.product-carousel-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: width 0.25s var(--ease), background 0.25s;
+}
+
+.product-carousel-dot.is-active {
+    width: 1.1rem;
+    background: var(--accent-bright);
+}
+
+.product-carousel-dot:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
 .product-card .product-body {
     padding: 1.25rem 1.5rem 1.5rem;
 }
