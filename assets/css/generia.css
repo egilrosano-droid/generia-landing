@@ -546,7 +546,8 @@ main > section.section-panel--tall > .container {
     box-shadow: var(--shadow-card);
 }
 
-.feature-card .icon {
+.feature-card .icon,
+.solution-card .icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -557,6 +558,17 @@ main > section.section-panel--tall > .container {
     background: rgba(99, 102, 241, 0.12);
     color: var(--accent-bright);
     font-size: 1.125rem;
+}
+
+.feature-card .icon svg,
+.solution-card .icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .feature-card h3,
