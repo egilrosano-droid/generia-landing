@@ -18,7 +18,8 @@
     --radius-lg: 1rem;
     --radius-xl: 1.25rem;
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.35);
-    --header-h: 9rem;
+    --header-h: 4.5rem;
+    --header-logo-h: 2.85rem;
     --container: min(1120px, calc(100vw - 2rem));
     --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,8 +110,9 @@ a {
 }
 
 .site-header .brand img {
-    height: 8rem;
+    height: var(--header-logo-h);
     width: auto;
+    max-height: calc(var(--header-h) - 1.25rem);
 }
 
 .site-footer .brand img {
@@ -308,7 +310,7 @@ section {
 
 /* —— Hero —— */
 .hero {
-    padding-top: calc(var(--header-h) + clamp(2.5rem, 8vw, 4rem));
+    padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 3.25rem));
     padding-bottom: clamp(3rem, 8vw, 5rem);
     min-height: min(100vh, 900px);
     display: flex;
