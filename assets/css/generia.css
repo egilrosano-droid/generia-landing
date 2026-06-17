@@ -32,7 +32,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: y proximity;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -313,26 +312,26 @@ main > section:not(.hero) {
 main > section.section-panel {
     min-height: 100dvh;
     min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: calc(var(--header-h) + 1.5rem) 0 2.5rem;
-    scroll-snap-align: start;
+    padding: calc(var(--header-h) + 1.25rem) 0 2.5rem;
     overflow: hidden;
     box-sizing: border-box;
 }
 
 main > section.section-panel > .container {
-    flex: 0 1 auto;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100dvh - var(--header-h) - 3.75rem);
+    min-height: calc(100svh - var(--header-h) - 3.75rem);
 }
 
 main > section.section-panel--tall {
-    justify-content: flex-start;
-    padding-top: calc(var(--header-h) + 2rem);
-    padding-bottom: 3rem;
-    min-height: max(100dvh, auto);
     overflow: visible;
+}
+
+main > section.section-panel--tall > .container {
+    min-height: 0;
+    justify-content: flex-start;
 }
 
 .section-header {
@@ -359,16 +358,19 @@ main > section.section-panel--tall {
     align-items: flex-start;
 }
 
-.hero.section-panel {
-    justify-content: flex-start;
+.hero-logo {
+    display: block;
+    width: min(100%, 15rem);
+    height: auto;
+    margin: 0 0 0.85rem;
+    object-fit: contain;
 }
 
-.hero.section-panel .hero-logo {
-    display: block;
-    width: min(100%, 42rem);
-    height: auto;
-    margin: 0 0 1.25rem;
-    object-fit: contain;
+.hero.section-panel > .container.hero-grid {
+    display: grid;
+    min-height: calc(100dvh - var(--header-h) - 3rem);
+    min-height: calc(100svh - var(--header-h) - 3rem);
+    justify-content: unset;
 }
 
 .hero-grid {
@@ -411,10 +413,10 @@ main > section.section-panel--tall {
 .mockup-stack {
     position: relative;
     width: 100%;
-    max-width: 520px;
+    max-width: 480px;
     margin-inline: auto;
     aspect-ratio: 4 / 3;
-    max-height: min(52vw, 380px);
+    max-height: min(48vw, 320px);
 }
 
 .mockup-card {
@@ -477,13 +479,13 @@ main > section.section-panel--tall {
     }
 
     .hero-logo {
-        width: min(100%, 36rem);
-        margin-bottom: 1rem;
+        width: min(100%, 17rem);
+        margin-bottom: 0.75rem;
     }
 
     .mockup-stack {
         margin-inline: 0 0 auto;
-        max-height: min(42vh, 380px);
+        max-height: min(38vh, 340px);
     }
 }
 
