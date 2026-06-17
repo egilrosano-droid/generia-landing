@@ -111,6 +111,7 @@ a {
 .brand.brand-text {
     font-size: 1.125rem;
     font-weight: 600;
+    font-style: italic;
     letter-spacing: -0.03em;
     color: var(--text);
 }
