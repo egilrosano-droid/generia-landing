@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="Axiora platform preview">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0a1a"/>
+      <stop offset="100%" stop-color="#1a1630"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg2)"/>
+  <rect x="24" y="24" width="752" height="48" rx="12" fill="#1a1630" stroke="#312e81"/>
+  <text x="52" y="54" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="16" font-weight="600">Axiora</text>
+  <text x="52" y="100" fill="#a5b4fc" font-family="system-ui,sans-serif" font-size="13">Operaciones y analítica empresarial</text>
+  <rect x="24" y="120" width="360" height="356" rx="12" fill="#1a1630" stroke="#312e81"/>
+  <rect x="404" y="120" width="372" height="170" rx="12" fill="#1a1630" stroke="#312e81"/>
+  <rect x="404" y="306" width="372" height="170" rx="12" fill="#1a1630" stroke="#312e81"/>
+  <polyline points="60,400 120,340 180,360 240,280 300,300 360,220" fill="none" stroke="url(#purple)" stroke-width="3"/>
+  <rect x="424" y="150" width="80" height="60" rx="8" fill="url(#purple)" opacity="0.3"/>
+  <text x="424" y="250" fill="#c4b5fd" font-size="28" font-weight="700" font-family="system-ui">+34%</text>
+  <text x="424" y="275" fill="#64748b" font-size="11" font-family="system-ui">Eficiencia operativa</text>
+  <rect x="424" y="336" width="332" height="10" rx="3" fill="#312e81"/>
+  <rect x="424" y="336" width="260" height="10" rx="3" fill="url(#purple)"/>
+  <rect x="424" y="360" width="332" height="10" rx="3" fill="#312e81"/>
+  <rect x="424" y="360" width="200" height="10" rx="3" fill="#6366f1"/>
+</svg>

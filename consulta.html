@@ -3,722 +3,184 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Consulta - GenérIA</title>
+        <title>Solicitar propuesta — GetGeneria</title>
         <meta
             name="description"
-            content="Comparte tu proyecto en pocos pasos y recibe una propuesta inicial enfocada en resultados."
+            content="Solicita una propuesta para tu plataforma SaaS, automatización con IA, portal empresarial o landing page."
         />
-        <meta property="og:title" content="Consulta - GenérIA" />
+        <meta property="og:title" content="Solicitar propuesta — GetGeneria" />
         <meta
             property="og:description"
-            content="Formulario breve para solicitar una propuesta de e-commerce, reservas, negocio, sitio web, app movil o app de IA."
+            content="Formulario breve para recibir una propuesta inicial de producto digital."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://getgeneria.com/consulta.html" />
         <meta property="og:locale" content="es_MX" />
-        <meta
-            property="og:image"
-            content="https://getgeneria.com/logo/getgeneria_logo.png"
-        />
+        <meta property="og:image" content="https://getgeneria.com/logo/getgeneria_logo.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Consulta - GenérIA" />
         <link rel="canonical" href="https://getgeneria.com/consulta.html" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            body {
-                margin: 0;
-                background: #020617;
-                overflow-x: hidden;
-                overflow-y: auto;
-                font-family: "Courier New", Courier, monospace;
-                color: #e2e8f0;
-            }
-            #grid-overlay {
-                position: fixed;
-                inset: 0;
-                pointer-events: none;
-                background-image: linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
-                background-size: 50px 50px;
-                z-index: 0;
-                mix-blend-mode: overlay;
-            }
-            .terminal-shell {
-                position: relative;
-                z-index: 10;
-                width: min(100%, 540px);
-                padding: 2rem;
-                box-sizing: border-box;
-                background: rgba(3, 8, 20, 0.75);
-                border: 1px solid rgba(6, 182, 212, 0.18);
-                border-radius: 24px;
-                backdrop-filter: blur(18px);
-                box-shadow: 0 20px 80px rgba(1, 6, 20, 0.55);
-            }
-            .prompt-line {
-                min-height: 3rem;
-                font-size: 0.9rem;
-                letter-spacing: 0.08em;
-                color: #8be9fd;
-                line-height: 1.6;
-                margin-bottom: 1rem;
-                white-space: pre-wrap;
-            }
-            .glitch {
-                animation: glitch-border 0.18s ease-in-out;
-            }
-            @keyframes glitch-border {
-                0% { box-shadow: 0 0 0 rgba(6, 182, 212, 0); border-color: rgba(6, 182, 212, 0.18); }
-                50% { box-shadow: 0 0 16px rgba(6, 182, 212, 0.35); border-color: rgba(6, 182, 212, 0.45); }
-                100% { box-shadow: 0 0 0 rgba(6, 182, 212, 0); border-color: rgba(6, 182, 212, 0.18); }
-            }
-            .notification {
-                padding: 0.85rem 1rem;
-                border-radius: 12px;
-                background: rgba(2, 6, 23, 0.95);
-                border: 1px solid rgba(56, 189, 248, 0.2);
-                color: #c8f7ff;
-                font-size: 0.8rem;
-                letter-spacing: 0.08em;
-                margin-top: 0.8rem;
-            }
-            .overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(1, 5, 16, 0.85);
-                backdrop-filter: blur(16px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1.5rem;
-                z-index: 50;
-            }
-            .hidden { display: none; }
-            .modal {
-                width: min(100%, 560px);
-                box-sizing: border-box;
-                border-radius: 24px;
-                background: rgba(3, 10, 25, 0.96);
-                border: 1px solid rgba(56, 189, 248, 0.2);
-                padding: 2rem;
-                box-shadow: 0 24px 72px rgba(0, 0, 0, 0.55);
-            }
-            .log-line {
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 0.92rem;
-                color: #9bf6ff;
-                margin-bottom: 0.55rem;
-            }
-            .code-block {
-                background: #011627;
-                border: 1px solid rgba(56, 189, 248, 0.2);
-                border-radius: 16px;
-                padding: 1rem;
-                margin-top: 1rem;
-                overflow-x: auto;
-                box-shadow: inset 0 0 18px rgba(10, 15, 40, 0.5);
-                font-family: 'Courier New', Courier, monospace;
-                color: #d6deeb;
-                line-height: 1.5;
-                font-size: 0.88rem;
-            }
-            .compile-panel {
-                margin-top: 1rem;
-                padding: 1rem;
-                border-radius: 18px;
-                background: rgba(0, 0, 0, 0.45);
-                border: 1px solid rgba(6, 182, 212, 0.18);
-            }
-            .load-bar {
-                height: 0.55rem;
-                border-radius: 999px;
-                background: rgba(255, 255, 255, 0.08);
-                overflow: hidden;
-                margin-top: 1rem;
-            }
-            .load-progress {
-                height: 100%;
-                width: 0;
-                background: linear-gradient(90deg, rgba(56, 189, 248, 0.9), rgba(67, 56, 202, 0.9));
-                transition: width 0.4s ease;
-            }
-            .contact-box {
-                margin-top: 1rem;
-                padding: 0.8rem;
-                border-radius: 12px;
-                border: 1px solid rgba(34, 211, 238, 0.22);
-                background: rgba(2, 6, 23, 0.75);
-                font-size: 0.78rem;
-                line-height: 1.5;
-            }
-            .contact-box a {
-                color: #67e8f9;
-                text-decoration: underline;
-            }
-            @media (max-width: 768px) {
-                .terminal-shell {
-                    padding: 1.2rem;
-                    border-radius: 16px;
-                }
-                .prompt-line {
-                    font-size: 0.8rem;
-                    letter-spacing: 0.03em;
-                }
-                .modal {
-                    padding: 1.2rem;
-                    border-radius: 16px;
-                }
-                #step-nav {
-                    flex-direction: column;
-                    gap: 0.6rem;
-                }
-                #step-nav button {
-                    width: 100%;
-                }
-            }
-        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="assets/css/generia.css" />
     </head>
-    <body class="text-white min-h-screen flex items-start justify-center relative overflow-y-auto py-4">
-        <div id="grid-overlay"></div>
-        <div class="terminal-shell">
-            <div class="w-full h-1 bg-gray-800 rounded mb-6 overflow-hidden">
-                <div id="progress-bar" class="h-full bg-cyan-500 rounded transition-all duration-500" style="width: 33%;"></div>
+    <body>
+        <header class="site-header is-scrolled">
+            <div class="container header-inner">
+                <a href="index.html" class="brand" aria-label="GetGeneria inicio">
+                    <img src="logo/getgeneria_logo.png" alt="" width="120" height="32" />
+                    <span>GetGeneria</span>
+                </a>
+                <nav class="nav-desktop" aria-label="Principal">
+                    <a href="index.html#soluciones">Soluciones</a>
+                    <a href="index.html#productos">Productos</a>
+                    <a href="index.html#proceso">Proceso</a>
+                    <a href="index.html#contacto">Contacto</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="consulta.html" class="btn btn-primary" aria-current="page">Solicitar propuesta</a>
+                    <button
+                        type="button"
+                        class="menu-toggle"
+                        aria-label="Abrir menú"
+                        aria-expanded="false"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 7h16M4 12h16M4 17h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <a href="index.html" class="text-xs text-cyan-400 hover:text-cyan-300 mb-4 inline-block">&larr; Volver</a>
-            <h1 class="text-2xl font-bold text-center mb-6 text-cyan-400">Diagnóstico de Soluciones</h1>
-            <div id="typewriter" class="prompt-line">[SISTEMA]: Iniciando análisis...</div>
-            <form id="consulta-form" class="space-y-4 relative">
-                <input type="hidden" id="json-payload" name="json_payload" value="" />
-                <div id="step-1" class="step">
-                    <div>
-                        <label for="nombre" class="block text-sm font-medium text-gray-300">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Tu nombre" required>
-                    </div>
-                    <div>
-                        <label for="tipo" class="block text-sm font-medium text-gray-300">Tipo de Solución</label>
-                        <select id="tipo" name="tipo" class="interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
-                            <option value="" disabled selected>Selecciona una opción</option>
-                            <option value="ecommerce">E-commerce</option>
-                            <option value="reservas">Reservas</option>
-                            <option value="negocio">Negocio</option>
-                            <option value="sitio-web">Sitio web</option>
-                            <option value="app-movil">App móvil</option>
-                            <option value="app-ia">App de IA</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
-                        <input type="email" id="email" name="email" class="interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="tu@email.com" required>
-                    </div>
+            <nav class="nav-mobile" aria-label="Móvil">
+                <a href="index.html#soluciones">Soluciones</a>
+                <a href="index.html#productos">Productos</a>
+                <a href="index.html#proceso">Proceso</a>
+                <a href="index.html#contacto">Contacto</a>
+            </nav>
+        </header>
+
+        <main class="page-consulta">
+            <div class="container consulta-shell">
+                <a href="index.html" class="btn btn-ghost" style="margin-bottom: 1rem; padding-left: 0">← Volver al inicio</a>
+
+                <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+                    <div id="progress-fill" class="progress-fill"></div>
                 </div>
-                <div id="step-2" class="step hidden">
-                    <div id="diagnostico-fields"></div>
-                </div>
-                <div id="step-3" class="step hidden">
-                    <div>
-                        <label for="alcance" class="block text-sm font-medium text-gray-300">Alcance</label>
-                        <textarea id="alcance" name="alcance" rows="4" class="interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Describe el alcance de tu proyecto" required></textarea>
-                        <div class="mt-2 flex flex-wrap gap-2">
-                            <button type="button" id="quick-alcance" class="px-3 py-1 border border-cyan-500/50 text-cyan-300 rounded-md text-xs hover:bg-cyan-500/10">Usar plantilla sugerida</button>
-                        </div>
-                        <details class="mt-2">
-                            <summary class="text-xs text-cyan-400 cursor-pointer hover:text-cyan-300">¿Necesitas ayuda para redactar el alcance?</summary>
-                            <div class="mt-2 space-y-2">
-                                <input type="text" id="proceso-manual" placeholder="¿Qué problema te está frenando hoy?" class="mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                                <input type="text" id="resultado-ideal" placeholder="¿Qué resultado quieres ver en operación?" class="mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                                <input type="text" id="herramientas" placeholder="¿Hay algún requisito especial o restricción?" class="mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                                <button type="button" id="generar-alcance" class="px-3 py-1 bg-cyan-500 text-black rounded-md text-xs hover:bg-cyan-400">Generar Alcance</button>
+
+                <div class="consulta-card">
+                    <h1 id="step-title" class="consulta-step-title">Cuéntanos sobre ti</h1>
+                    <p id="step-desc" class="consulta-step-desc">Datos básicos para personalizar tu propuesta.</p>
+
+                    <form id="consulta-form">
+                        <div id="step-1" class="step">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input
+                                    type="text"
+                                    id="nombre"
+                                    name="nombre"
+                                    class="form-input"
+                                    placeholder="Tu nombre"
+                                    required
+                                />
                             </div>
-                        </details>
-                    </div>
-                    <div>
-                        <label for="tiempo" class="block text-sm font-medium text-gray-300">¿Cuál es tu ventana de lanzamiento ideal?</label>
-                        <select id="tiempo" name="tiempo" class="interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
-                            <option value="" disabled selected>Selecciona una opción</option>
-                            <option value="prioridad-alta">Prioridad Alta (Exploración inmediata)</option>
-                            <option value="medio-plazo">Medio Plazo (3-6 semanas)</option>
-                            <option value="planeacion">Fase de Planeación (Sin fecha fija)</option>
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Los tiempos finales se determinarán tras el análisis técnico de viabilidad.</p>
-                    </div>
-                    <div id="resumen" class="mt-4 p-4 bg-gray-900/70 rounded-md border border-cyan-500/10">
-                        <h3 class="text-lg font-bold text-cyan-400 mb-2">Resumen de tu consulta:</h3>
-                        <p id="resumen-content" class="text-sm text-gray-300"></p>
-                    </div>
-                    <p class="text-xs text-cyan-300/90 mt-3">
-                        Te respondemos con una propuesta inicial en un plazo estimado de 24 a 48 horas hábiles.
-                    </p>
-                    <button type="submit" id="submit-btn" class="w-full py-2 px-4 bg-transparent border border-green-500 text-green-500 rounded-md hover:bg-green-500 hover:text-black hover:shadow-[0_0_10px_#50fa7b] transition-all duration-300 mt-4" disabled>Enviar para Análisis</button>
-                </div>
-                <div id="step-nav" class="flex justify-between mt-6">
-                    <button type="button" id="prev-btn" class="px-4 py-2 bg-transparent border border-cyan-500 text-cyan-500 rounded-md hover:bg-cyan-500 hover:text-black transition-all duration-300 opacity-50" disabled>Atrás</button>
-                    <button type="button" id="next-btn" class="px-4 py-2 bg-transparent border border-cyan-500 text-cyan-500 rounded-md hover:bg-cyan-500 hover:text-black transition-all duration-300">Siguiente</button>
-                </div>
-                <div class="contact-box">
-                    <strong class="text-cyan-300">Contacto directo</strong><br />
-                    Email: <a id="contact-email-link" href="#">--</a><br />
-                    WhatsApp: <a id="contact-phone-link" href="#">--</a>
-                </div>
-            </form>
-        </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-input"
+                                    placeholder="tu@email.com"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Tipo de producto</label>
+                                <select id="tipo" name="tipo" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="plataforma-saas">Plataforma SaaS</option>
+                                    <option value="automatizacion-ia">Automatización con IA</option>
+                                    <option value="portal-empresarial">Portal empresarial</option>
+                                    <option value="landing-page">Landing page profesional</option>
+                                    <option value="sistema-citas">Sistema de citas</option>
+                                    <option value="crm-operativo">CRM operativo</option>
+                                    <option value="asistente-ia">Asistente IA</option>
+                                    <option value="otro">Otro / a medida</option>
+                                </select>
+                            </div>
+                        </div>
 
-        <div id="assist-overlay" class="overlay hidden">
-            <div class="modal">
-                <h2 class="text-xl font-bold text-cyan-400 mb-4">Asistente de Estructuración</h2>
-                <p class="text-sm text-gray-300 mb-4">Responde estas preguntas y el sistema generará un alcance profesional.</p>
-                <div class="space-y-3">
-                    <input id="assist-proceso" type="text" placeholder="¿Qué proceso manual consume más tiempo hoy?" class="w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    <input id="assist-resultado" type="text" placeholder="¿Cuál sería el resultado ideal?" class="w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    <input id="assist-herramientas" type="text" placeholder="¿Con qué herramientas debe conectarse?" class="w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div class="flex justify-end gap-3 mt-6">
-                    <button id="assist-cancel" type="button" class="px-4 py-2 rounded-md border border-gray-600 text-gray-300 hover:bg-white/5">Cancelar</button>
-                    <button id="assist-apply" type="button" class="px-4 py-2 rounded-md bg-cyan-500 text-black hover:bg-cyan-400">Aplicar al Alcance</button>
+                        <div id="step-2" class="step hidden">
+                            <div id="diagnostico-fields"></div>
+                        </div>
+
+                        <div id="step-3" class="step hidden">
+                            <div class="form-group">
+                                <label for="alcance">Alcance del proyecto</label>
+                                <textarea
+                                    id="alcance"
+                                    name="alcance"
+                                    class="form-textarea"
+                                    rows="4"
+                                    placeholder="Describe qué quieres lograr, para quién y en qué plazo aproximado"
+                                    required
+                                ></textarea>
+                                <button type="button" id="quick-alcance" class="btn btn-secondary" style="margin-top: 0.75rem">
+                                    Usar plantilla sugerida
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label for="tiempo">Ventana de lanzamiento ideal</label>
+                                <select id="tiempo" name="tiempo" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="prioridad-alta">Prioridad alta — exploración inmediata</option>
+                                    <option value="medio-plazo">Medio plazo — 4 a 8 semanas</option>
+                                    <option value="planeacion">Fase de planeación — sin fecha fija</option>
+                                </select>
+                                <p class="form-hint">Los tiempos finales se confirman tras el análisis de viabilidad.</p>
+                            </div>
+                            <div class="resumen-box">
+                                <strong>Resumen</strong>
+                                <div id="resumen-content" style="margin-top: 0.5rem"></div>
+                            </div>
+                            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem" disabled>
+                                Enviar propuesta
+                            </button>
+                        </div>
+
+                        <div id="step-nav" class="step-nav">
+                            <button type="button" id="prev-btn" class="btn btn-secondary btn-prev" disabled>Atrás</button>
+                            <button type="button" id="next-btn" class="btn btn-primary">Siguiente</button>
+                        </div>
+                    </form>
+
+                    <div class="contact-meta" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border)">
+                        <strong style="color: var(--text)">Contacto directo</strong><br />
+                        Email: <a id="contact-email-link" href="mailto:info@getgeneria.com">info@getgeneria.com</a><br />
+                        WhatsApp: <a id="contact-phone-link" href="https://wa.me/525540273270">+52 55 4027 3270</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
 
-        <div id="compile-overlay" class="overlay hidden">
-            <div class="modal">
-                <h2 class="text-xl font-bold text-cyan-400 mb-4">Compilando Arquitectura de Proyecto...</h2>
-                <div id="compile-logs" class="compile-panel">
-                    <div class="log-line">> Preparando sistema...</div>
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div class="brand">
+                    <img src="logo/getgeneria_logo.png" alt="" width="100" height="28" />
+                    <span>GetGeneria</span>
                 </div>
-                <div class="load-bar">
-                    <div id="load-progress" class="load-progress"></div>
-                </div>
-                <div id="json-output" class="code-block hidden"></div>
+                <p class="footer-copy">© <span id="year"></span> GetGeneria. AI Product Studio.</p>
             </div>
-        </div>
+        </footer>
 
+        <script src="assets/js/generia.js"></script>
+        <script src="assets/js/consulta.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const form = document.getElementById('consulta-form');
-                const steps = document.querySelectorAll('.step');
-                const progressBar = document.getElementById('progress-bar');
-                const prevBtn = document.getElementById('prev-btn');
-                const nextBtn = document.getElementById('next-btn');
-                const tipoSelect = document.getElementById('tipo');
-                const diagnosticoFields = document.getElementById('diagnostico-fields');
-                const resumenContent = document.getElementById('resumen-content');
-                const alcanceTextarea = document.getElementById('alcance');
-                const submitBtn = document.getElementById('submit-btn');
-                const generarAlcanceBtn = document.getElementById('generar-alcance');
-                const quickAlcanceBtn = document.getElementById('quick-alcance');
-                const jsonPayload = document.getElementById('json-payload');
-                const typewriter = document.getElementById('typewriter');
-                const assistOverlay = document.getElementById('assist-overlay');
-                const compileOverlay = document.getElementById('compile-overlay');
-                const compileLogs = document.getElementById('compile-logs');
-                const loadProgress = document.getElementById('load-progress');
-                const jsonOutput = document.getElementById('json-output');
-                const assistBtn = document.getElementById('assist-apply');
-                const assistCancel = document.getElementById('assist-cancel');
-                const assistProceso = document.getElementById('assist-proceso');
-                const assistResultado = document.getElementById('assist-resultado');
-                const assistHerramientas = document.getElementById('assist-herramientas');
-                const gridOverlay = document.getElementById('grid-overlay');
-                const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-                let audioCtx = null;
-                // Configura tus datos de contacto aquí.
-                const CONTACT = {
-                    email: 'info@getgeneria.com',
-                    phoneDisplay: '+52 55 4027 3270',
-                    phoneDigits: '525540273270'
-                };
-                const contactEmailLink = document.getElementById('contact-email-link');
-                const contactPhoneLink = document.getElementById('contact-phone-link');
-                const trackEvent = (eventName, details = {}) => {
-                    const key = "generia_metrics";
-                    const events = JSON.parse(localStorage.getItem(key) || "[]");
-                    events.push({
-                        event: eventName,
-                        details,
-                        ts: new Date().toISOString(),
-                    });
-                    localStorage.setItem(key, JSON.stringify(events.slice(-200)));
-                };
-
-                let currentStep = 0;
-                let typingTimeout = null;
-                let pauseTimeout = null;
-
-                const prompts = {
-                    0: ['[SISTEMA]: Iniciando Diagnóstico de Soluciones...', '> Completa tus datos para personalizar la propuesta.'],
-                    1: ['[SISTEMA]: Analizando tipo de proyecto...', '> Responde 2 preguntas rápidas para enfocar el resultado.'],
-                    2: ['[SISTEMA]: Recopilando alcance...', '> Puedes usar plantilla sugerida y editarla en segundos.']
-                };
-
-                const typeWriter = (text, element, speed, callback) => {
-                    element.textContent = '';
-                    let index = 0;
-                    const interval = setInterval(() => {
-                        element.textContent += text.charAt(index);
-                        index++;
-                        if (index === text.length) {
-                            clearInterval(interval);
-                            if (callback) callback();
-                        }
-                    }, speed);
-                };
-
-                const writeLines = async (lines) => {
-                    typewriter.textContent = '';
-                    for (const line of lines) {
-                        await new Promise(res => typeWriter(line + '\n', typewriter, 18, res));
-                        await new Promise(res => setTimeout(res, 220));
-                    }
-                };
-
-                const flashField = (field) => {
-                    field.classList.add('glitch');
-                    setTimeout(() => field.classList.remove('glitch'), 180);
-                };
-
-                const playClick = () => {
-                    // En iPhone/dispositivos táctiles evitamos crear audio contexts por foco
-                    // para prevenir congelamientos por consumo excesivo.
-                    if (isTouchDevice) return;
-                    if (!window.AudioContext && !window.webkitAudioContext) return;
-                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                    if (!audioCtx) audioCtx = new AudioCtx();
-                    if (audioCtx.state === 'suspended') audioCtx.resume();
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.04);
-                };
-
-                const showStep = async (step) => {
-                    steps.forEach((s, index) => {
-                        s.classList.toggle('hidden', index !== step);
-                    });
-                    progressBar.style.width = `${(step + 1) / 3 * 100}%`;
-                    prevBtn.disabled = step === 0;
-                    prevBtn.style.opacity = step === 0 ? '0.5' : '1';
-                    nextBtn.classList.toggle('hidden', step === 2);
-                    nextBtn.textContent = 'Siguiente';
-                    await writeLines(prompts[step]);
-                    if (step === 2) {
-                        updateResumen();
-                        checkAlcanceLength();
-                    }
-                };
-
-                const checkAlcanceLength = () => {
-                    const valid = alcanceTextarea.value.trim().length >= 25;
-                    submitBtn.disabled = !valid;
-                };
-
-                const validateStep = (step) => {
-                    const fields = steps[step].querySelectorAll('input, select, textarea');
-                    for (const field of fields) {
-                        if (field.hasAttribute('required') && !field.value.trim()) return false;
-                    }
-                    return true;
-                };
-
-                const generateDiagnostico = (tipo) => {
-                    diagnosticoFields.innerHTML = '';
-                    const config = {
-                        ecommerce: [
-                            { label: 'Objetivo principal', type: 'select', id: 'objetivo', options: ['Vender más', 'Reducir abandono de carrito', 'Controlar pedidos e inventario'] },
-                            { label: 'Volumen inicial esperado por mes', type: 'select', id: 'volumen', options: ['Hasta 100 pedidos', '100-500 pedidos', 'Más de 500 pedidos'] }
-                        ],
-                        reservas: [
-                            { label: 'Tipo de reserva', type: 'select', id: 'objetivo', options: ['Citas de servicios', 'Reservas de espacios', 'Reservas mixtas'] },
-                            { label: 'Frecuencia esperada', type: 'select', id: 'volumen', options: ['Baja', 'Media', 'Alta'] }
-                        ],
-                        negocio: [
-                            { label: 'Área más crítica hoy', type: 'select', id: 'objetivo', options: ['Seguimiento comercial', 'Operación diaria', 'Control y reportes'] },
-                            { label: 'Resultado que más te importa', type: 'select', id: 'volumen', options: ['Más control', 'Más velocidad', 'Más cierres'] }
-                        ],
-                        'sitio-web': [
-                            { label: 'Meta del sitio', type: 'select', id: 'objetivo', options: ['Captar prospectos', 'Mostrar servicios', 'Validar marca'] },
-                            { label: 'Tipo de visitante principal', type: 'select', id: 'volumen', options: ['Clientes finales', 'Empresas', 'Mixto'] }
-                        ],
-                        'app-movil': [
-                            { label: 'Uso principal de la app', type: 'select', id: 'objetivo', options: ['Clientes', 'Equipo interno', 'Ambos'] },
-                            { label: 'Prioridad actual', type: 'select', id: 'volumen', options: ['Experiencia de cliente', 'Operación interna', 'Escalabilidad'] }
-                        ],
-                        'app-ia': [
-                            { label: 'Tipo de problema a resolver', type: 'select', id: 'objetivo', options: ['Clasificación', 'Priorización', 'Recomendaciones'] },
-                            { label: 'Volumen de información', type: 'select', id: 'volumen', options: ['Bajo', 'Medio', 'Alto'] }
-                        ]
-                    };
-                    const fields = config[tipo] || [];
-                    fields.forEach(field => {
-                        const div = document.createElement('div');
-                        div.className = 'mb-4';
-                        const label = document.createElement('label');
-                        label.className = 'block text-sm font-medium text-gray-300';
-                        label.textContent = field.label;
-                        label.setAttribute('for', field.id);
-                        div.appendChild(label);
-                        let input;
-                        if (field.type === 'select') {
-                            input = document.createElement('select');
-                            input.innerHTML = '<option value="" disabled selected>Selecciona una opción</option>' + field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
-                        } else {
-                            input = document.createElement('input');
-                            input.type = field.type;
-                            input.placeholder = field.placeholder;
-                        }
-                        input.id = field.id;
-                        input.name = field.id;
-                        input.className = 'interactive-field mt-1 block w-full px-3 py-2 bg-transparent border border-cyan-500/30 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500';
-                        input.required = true;
-                        input.addEventListener('focus', () => {
-                            input.classList.add('glitch');
-                            playClick();
-                            setTimeout(() => input.classList.remove('glitch'), 180);
-                        });
-                        input.addEventListener('input', () => {
-                            flashField(input);
-                            if (input === alcanceTextarea) {
-                                checkAlcanceLength();
-                                debouncePause();
-                            }
-                        });
-                        div.appendChild(input);
-                        diagnosticoFields.appendChild(div);
-                    });
-
-                    // Autocompleta diagnóstico con la primera opción útil para reducir esfuerzo
-                    const autoObjetivo = document.getElementById('objetivo');
-                    const autoVolumen = document.getElementById('volumen');
-                    if (autoObjetivo && autoObjetivo.options.length > 1) {
-                        autoObjetivo.selectedIndex = 1;
-                    }
-                    if (autoVolumen && autoVolumen.options.length > 1) {
-                        autoVolumen.selectedIndex = 1;
-                    }
-                };
-
-                const getDiagnosticoText = () => {
-                    const objetivo = document.getElementById('objetivo');
-                    const volumen = document.getElementById('volumen');
-                    if (objetivo && volumen) return `Objetivo: ${objetivo.value}, Contexto: ${volumen.value}`;
-                    return '';
-                };
-
-                const getTemplateAlcance = (tipo) => {
-                    const templates = {
-                        ecommerce: 'Necesito una solución de e-commerce que permita vender de forma simple, con seguimiento de pedidos e inventario actualizado para reducir fricción en la compra.',
-                        reservas: 'Necesito una solución de reservas con disponibilidad clara, confirmaciones inmediatas y menos ausencias para mejorar la ocupación del negocio.',
-                        negocio: 'Necesito una solución para ordenar la operación diaria, priorizar actividades comerciales y visualizar resultados para tomar decisiones más rápidas.',
-                        'sitio-web': 'Necesito un sitio web comercial enfocado en captar oportunidades, comunicar valor con claridad y facilitar el contacto.',
-                        'app-movil': 'Necesito una app móvil que mejore la experiencia de cliente y centralice funciones clave para operar con más velocidad.',
-                        'app-ia': 'Necesito una app de IA que clasifique información, priorice casos y sugiera acciones para responder más rápido.'
-                    };
-                    return templates[tipo] || '';
-                };
-
-                const updateResumen = () => {
-                    const nombre = document.getElementById('nombre').value;
-                    const tipo = tipoSelect.options[tipoSelect.selectedIndex].text;
-                    const email = document.getElementById('email').value;
-                    const alcance = alcanceTextarea.value;
-                    const tiempo = document.getElementById('tiempo').options[document.getElementById('tiempo').selectedIndex].text;
-                    const diagnostico = getDiagnosticoText();
-                    resumenContent.innerHTML = `\n                        <strong>Nombre:</strong> ${nombre}<br>\n                        <strong>Tipo de Solución:</strong> ${tipo}<br>\n                        <strong>Email:</strong> ${email}<br>\n                        <strong>Diagnóstico:</strong> ${diagnostico}<br>\n                        <strong>Alcance:</strong> ${alcance}<br>\n                        <strong>Ventana de Lanzamiento:</strong> ${tiempo}\n                    `;
-                };
-
-                const showAssist = () => {
-                    assistOverlay.classList.remove('hidden');
-                    assistProceso.focus();
-                };
-
-                const hideAssist = () => {
-                    assistOverlay.classList.add('hidden');
-                    assistProceso.value = '';
-                    assistResultado.value = '';
-                    assistHerramientas.value = '';
-                };
-
-                const renderJsonOutput = (payload) => {
-                    const jsonText = JSON.stringify(payload, null, 2);
-                    jsonPayload.value = jsonText;
-                    jsonOutput.textContent = jsonText;
-                    jsonOutput.classList.remove('hidden');
-                };
-
-                const compileSequence = async () => {
-                    compileLogs.innerHTML = '';
-                    jsonOutput.classList.add('hidden');
-                    loadProgress.style.width = '0%';
-                    compileOverlay.classList.remove('hidden');
-                    const steps = ['> Analizando viabilidad...', '> Optimizando recursos...', '> Generando Blueprint...'];
-                    for (let i = 0; i < steps.length; i++) {
-                        await new Promise((resolve) => setTimeout(resolve, 700));
-                        compileLogs.innerHTML += `<div class="log-line">${steps[i]}</div>`;
-                        loadProgress.style.width = `${((i + 1) / steps.length) * 100}%`;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, 700));
-                    const payload = {
-                        nombre: document.getElementById('nombre').value,
-                        tipo: tipoSelect.value,
-                        email: document.getElementById('email').value,
-                        diagnostico: getDiagnosticoText(),
-                        alcance: alcanceTextarea.value,
-                        tiempo: document.getElementById('tiempo').value,
-                        timestamp: new Date().toISOString()
-                    };
-                    renderJsonOutput(payload);
-                    compileLogs.innerHTML += '<div class="log-line">> Compilación completada. JSON listo.</div>';
-                    return payload;
-                };
-
-                const buildMailTo = (payload) => {
-                    const subject = encodeURIComponent(`Nueva solicitud - ${payload.tipo || 'proyecto'}`);
-                    const body = encodeURIComponent(
-                        [
-                            'Nueva solicitud de GenérIA',
-                            '',
-                            `Nombre: ${payload.nombre}`,
-                            `Email cliente: ${payload.email}`,
-                            `Tipo: ${payload.tipo}`,
-                            `Diagnóstico: ${payload.diagnostico}`,
-                            `Alcance: ${payload.alcance}`,
-                            `Tiempo: ${payload.tiempo}`,
-                            `Fecha: ${payload.timestamp}`,
-                            '',
-                            'JSON:',
-                            JSON.stringify(payload, null, 2)
-                        ].join('\n')
-                    );
-                    return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
-                };
-
-                const debouncePause = () => {
-                    clearTimeout(pauseTimeout);
-                    pauseTimeout = setTimeout(() => {
-                        const noteExists = document.getElementById('ambiguedad-note');
-                        if (!noteExists && alcanceTextarea.value.trim().length > 10) {
-                            const note = document.createElement('div');
-                            note.id = 'ambiguedad-note';
-                            note.className = 'notification';
-                            note.textContent = '[SISTEMA]: Detectando ambigüedad... ¿Desea ejecutar Asistente de Estructuración?';
-                            note.addEventListener('click', showAssist);
-                            document.querySelector('#step-3').insertBefore(note, document.getElementById('resumen'));
-                        }
-                    }, 1400);
-                };
-
-                const attachInteractionEffects = () => {
-                    const interactive = document.querySelectorAll('.interactive-field');
-                    interactive.forEach(field => {
-                        field.addEventListener('focus', () => {
-                            field.classList.add('glitch');
-                            playClick();
-                            setTimeout(() => field.classList.remove('glitch'), 180);
-                        });
-                        field.addEventListener('blur', () => {
-                            setTimeout(() => field.classList.remove('glitch'), 180);
-                        });
-                        field.addEventListener('input', () => {
-                            flashField(field);
-                            if (field === alcanceTextarea) {
-                                checkAlcanceLength();
-                                debouncePause();
-                            }
-                        });
-                    });
-                };
-
-                const updateGridPosition = (e) => {
-                    const x = (e.clientX / window.innerWidth) * 100;
-                    const y = (e.clientY / window.innerHeight) * 100;
-                    gridOverlay.style.backgroundPosition = `${x}% ${y}% , ${y}% ${x}%`;
-                };
-
-                tipoSelect.addEventListener('change', () => {
-                    generateDiagnostico(tipoSelect.value);
-                });
-                generarAlcanceBtn.addEventListener('click', () => {
-                    const proceso = document.getElementById('proceso-manual').value;
-                    const resultado = document.getElementById('resultado-ideal').value;
-                    const herramientas = document.getElementById('herramientas').value;
-                    if (proceso && resultado && herramientas) {
-                        alcanceTextarea.value = `Problema actual: ${proceso}. Resultado esperado: ${resultado}. Consideraciones especiales: ${herramientas}.`;
-                        checkAlcanceLength();
-                        updateResumen();
-                    } else {
-                        alert('Responde todas las preguntas para generar el alcance.');
-                    }
-                });
-
-                quickAlcanceBtn.addEventListener('click', () => {
-                    if (!tipoSelect.value) {
-                        alert('Primero selecciona el tipo de solución.');
-                        return;
-                    }
-                    alcanceTextarea.value = getTemplateAlcance(tipoSelect.value);
-                    checkAlcanceLength();
-                    updateResumen();
-                });
-
-                nextBtn.addEventListener('click', async () => {
-                    if (validateStep(currentStep)) {
-                        if (currentStep < 2) {
-                            currentStep++;
-                            await showStep(currentStep);
-                            trackEvent('consulta_next_step', { step: currentStep + 1 });
-                        }
-                    } else {
-                        alert('Por favor, completa todos los campos obligatorios.');
-                    }
-                });
-
-                prevBtn.addEventListener('click', async () => {
-                    if (currentStep > 0) {
-                        currentStep--;
-                        await showStep(currentStep);
-                    }
-                });
-
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    if (!validateStep(2)) {
-                        alert('Por favor, completa todos los campos obligatorios.');
-                        return;
-                    }
-                    trackEvent('consulta_submit', { tipo: tipoSelect.value, tiempo: document.getElementById('tiempo').value });
-                    const payload = await compileSequence();
-                    const mailtoUrl = buildMailTo(payload);
-                    window.location.href = mailtoUrl;
-                });
-
-                assistBtn.addEventListener('click', () => {
-                    const proceso = assistProceso.value.trim();
-                    const resultado = assistResultado.value.trim();
-                    const herramientas = assistHerramientas.value.trim();
-                    if (!proceso || !resultado || !herramientas) {
-                        alert('Completa todas las preguntas del asistente.');
-                        return;
-                    }
-                    alcanceTextarea.value = `Problema actual: ${proceso}. Resultado esperado: ${resultado}. Consideraciones especiales: ${herramientas}.`;
-                    checkAlcanceLength();
-                    updateResumen();
-                    hideAssist();
-                });
-
-                assistCancel.addEventListener('click', hideAssist);
-                if (!isTouchDevice) {
-                    document.addEventListener('mousemove', updateGridPosition);
-                }
-                contactEmailLink.textContent = CONTACT.email;
-                contactEmailLink.href = `mailto:${CONTACT.email}`;
-                contactPhoneLink.textContent = CONTACT.phoneDisplay;
-                contactPhoneLink.href = `https://wa.me/${CONTACT.phoneDigits}`;
-
-                showStep(0);
-                attachInteractionEffects();
-            });
+            document.getElementById("year").textContent = new Date().getFullYear();
         </script>
     </body>
 </html>
