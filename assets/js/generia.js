@@ -61,17 +61,17 @@
     }
 
     document.querySelectorAll("[data-product-carousel]").forEach((carousel) => {
-        const track = carousel.querySelector(".product-carousel-track");
+        const slides = carousel.querySelectorAll(".product-carousel-slide");
         const dots = carousel.querySelectorAll(".product-carousel-dot");
-        const total = dots.length;
-        if (!track || !total) return;
+        const total = slides.length;
+        if (!total || !dots.length) return;
 
         let index = 0;
         let timer;
 
         const goTo = (next) => {
             index = ((next % total) + total) % total;
-            track.style.transform = `translateX(-${index * 100}%)`;
+            slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
             dots.forEach((dot, i) => {
                 const active = i === index;
                 dot.classList.toggle("is-active", active);
