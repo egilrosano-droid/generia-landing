@@ -764,15 +764,17 @@ main > section.section-panel--tall > .container {
 
 #proceso.section-panel,
 #por-que.section-panel {
-    padding-top: calc(var(--header-h) + 0.75rem);
-    padding-bottom: 1.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 #proceso.section-panel > .container,
 #por-que.section-panel > .container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    min-height: calc(100dvh - var(--header-h) - 2.5rem);
-    min-height: calc(100svh - var(--header-h) - 2.5rem);
+    min-height: calc(100dvh - var(--header-h) - 1rem);
+    min-height: calc(100svh - var(--header-h) - 1rem);
 }
 
 @media (min-width: 768px) {
