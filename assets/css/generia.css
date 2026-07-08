@@ -347,6 +347,15 @@ main > section.section-panel--tall > .container {
     margin-inline: auto;
 }
 
+.section-cta {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.section-cta.center {
+    display: flex;
+    justify-content: center;
+}
+
 /* —— Hero —— */
 .hero {
     overflow: hidden;
