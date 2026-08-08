@@ -613,14 +613,16 @@ main > section.section-panel--tall > .container {
 .hero-globe canvas {
     position: absolute;
     top: 50%;
-    left: 58%;
-    width: min(92vmin, 720px);
-    height: min(92vmin, 720px);
-    transform: translate(-28%, -52%);
-    opacity: 0.72;
+    left: 52%;
+    width: 75vmax;
+    height: 75vmax;
+    max-width: none;
+    max-height: none;
+    transform: translate(-28%, -50%);
+    opacity: 0.8;
     filter: saturate(1.05);
-    mask-image: radial-gradient(circle at 45% 48%, #000 42%, transparent 74%);
-    -webkit-mask-image: radial-gradient(circle at 45% 48%, #000 42%, transparent 74%);
+    mask-image: radial-gradient(circle at 46% 50%, #000 50%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at 46% 50%, #000 50%, transparent 80%);
 }
 
 .hero-globe::after {
@@ -770,11 +772,11 @@ main > section.section-panel--tall > .container {
     }
 
     .hero-globe canvas {
-        left: 62%;
-        width: min(88vmin, 780px);
-        height: min(88vmin, 780px);
-        opacity: 0.8;
-        transform: translate(-18%, -54%);
+        left: 56%;
+        width: 75vmax;
+        height: 75vmax;
+        opacity: 0.88;
+        transform: translate(-10%, -52%);
     }
 
     .mockup-stack {
@@ -790,10 +792,10 @@ main > section.section-panel--tall > .container {
 @media (max-width: 639px) {
     .hero-globe canvas {
         left: 50%;
-        width: min(120vw, 560px);
-        height: min(120vw, 560px);
-        opacity: 0.45;
-        transform: translate(-35%, -42%);
+        width: 90vmax;
+        height: 90vmax;
+        opacity: 0.55;
+        transform: translate(-42%, -48%);
     }
 }
 

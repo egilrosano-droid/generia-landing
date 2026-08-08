@@ -26,7 +26,7 @@ import createGlobe from "./vendor/cobe.js";
 
     const mount = () => {
         const rect = host.getBoundingClientRect();
-        const side = Math.max(rect.width, rect.height, 480);
+        const side = Math.max(rect.width * 0.9, rect.height * 0.9, 640);
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         width = side * dpr;
 
