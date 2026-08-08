@@ -697,6 +697,20 @@ main > section.section-panel--tall > .container {
     color: var(--cyan);
 }
 
+.product-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.15rem;
+}
+
+.product-actions .btn {
+    flex: 1 1 auto;
+    min-width: 7.5rem;
+    font-size: 0.8125rem;
+    padding: 0.6rem 0.9rem;
+}
+
 .solution-card a {
     display: block;
     margin-top: 1rem;
