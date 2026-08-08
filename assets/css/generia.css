@@ -360,70 +360,122 @@ main > section.section-panel--tall > .container {
     max-width: 34rem;
 }
 
-/* Marketing: 4 landings in one viewport */
+/* Marketing: copy left, landings right */
 #marketing.section-panel {
     padding-top: calc(var(--header-h) + 0.75rem);
     padding-bottom: 1.25rem;
 }
 
-#marketing.section-panel > .container {
+#marketing.section-panel > .container.marketing-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: center;
     justify-content: center;
     min-height: calc(100dvh - var(--header-h) - 2rem);
     min-height: calc(100svh - var(--header-h) - 2rem);
 }
 
-.marketing-grid {
+.marketing-copy .section-title {
+    margin-bottom: 0.85rem;
+    font-size: clamp(1.55rem, 3.4vw, 2.25rem);
+}
+
+.marketing-copy .section-lead {
+    margin-bottom: 1.35rem;
+    max-width: 28rem;
+}
+
+.marketing-copy-actions {
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
 }
 
-.marketing-card .product-shot {
-    aspect-ratio: 16 / 9;
+.marketing-pages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    max-height: min(70vh, 34rem);
+    overflow-y: auto;
+    padding-right: 0.25rem;
 }
 
-.marketing-card .product-body {
-    padding: 0.85rem 0.95rem 1rem;
+.marketing-row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: rgba(20, 20, 22, 0.55);
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.marketing-card .product-tag {
-    margin-bottom: 0.35rem;
-    font-size: 0.625rem;
+.marketing-row:hover {
+    border-color: var(--border-hover);
+    background: rgba(20, 20, 22, 0.85);
 }
 
-.marketing-card h3 {
-    margin-bottom: 0.3rem;
-    font-size: 1rem;
-}
-
-.marketing-card p {
-    font-size: 0.78rem;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+.marketing-thumb {
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-sm);
     overflow: hidden;
+    background: #0f1114;
+    border: 1px solid var(--border);
 }
 
-.marketing-card .product-actions {
-    margin-top: 0.75rem;
-    gap: 0.4rem;
+.marketing-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
 }
 
-.marketing-card .product-actions .btn {
-    min-width: 0;
-    flex: 1 1 calc(50% - 0.2rem);
+.marketing-row-body .product-tag {
+    margin-bottom: 0.2rem;
+    font-size: 0.6rem;
+}
+
+.marketing-row-body h3 {
+    margin: 0 0 0.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.marketing-row-body p {
+    margin: 0 0 0.3rem;
     font-size: 0.75rem;
-    padding: 0.5rem 0.55rem;
+    line-height: 1.35;
+    color: var(--text-secondary);
+}
+
+.marketing-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent-bright);
+}
+
+.marketing-link:hover {
+    text-decoration: underline;
 }
 
 @media (min-width: 900px) {
-    .marketing-grid.card-grid--4 {
-        grid-template-columns: repeat(4, 1fr);
+    #marketing.section-panel > .container.marketing-layout {
+        grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.2fr);
+        gap: clamp(1.5rem, 3vw, 3rem);
     }
-}
 
-@media (max-width: 899px) and (min-width: 640px) {
-    .marketing-grid.card-grid--4 {
-        grid-template-columns: repeat(2, 1fr);
+    .marketing-pages {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .marketing-row {
+        grid-template-columns: 7.5rem 1fr;
     }
 }
 
