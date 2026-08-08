@@ -31,7 +31,7 @@
         });
     }
 
-    const sectionIds = ["capacidades", "productos", "proceso", "por-que", "contacto"];
+    const sectionIds = ["capacidades", "productos", "marketing", "proceso", "por-que", "contacto"];
     const navAnchors = document.querySelectorAll(
         '.nav-desktop a[href^="#"], .nav-mobile a[href^="#"]'
     );
