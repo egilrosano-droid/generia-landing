@@ -97,6 +97,9 @@
 
         <main>
             <section id="hero" class="hero section-panel">
+                <div class="hero-globe" aria-hidden="true">
+                    <canvas id="hero-globe-canvas" width="1000" height="1000"></canvas>
+                </div>
                 <div class="container hero-grid">
                     <div class="hero-main">
                         <img
@@ -616,6 +619,7 @@
         </footer>
 
         <script src="assets/js/generia.js"></script>
+        <script type="module" src="assets/js/hero-globe.js"></script>
         <script>
             document.getElementById("year").textContent = new Date().getFullYear();
         </script>

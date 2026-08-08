@@ -364,6 +364,7 @@ main > section.section-panel--tall > .container {
 #productos.section-panel {
     padding-top: calc(var(--header-h) + 0.55rem);
     padding-bottom: 0.85rem;
+    overflow: hidden;
 }
 
 #productos.section-panel > .container {
@@ -596,11 +597,45 @@ main > section.section-panel--tall > .container {
 
 /* —— Hero —— */
 .hero {
+    position: relative;
     overflow: hidden;
     z-index: 0;
 }
 
+.hero-globe {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.hero-globe canvas {
+    position: absolute;
+    top: 50%;
+    left: 58%;
+    width: min(92vmin, 720px);
+    height: min(92vmin, 720px);
+    transform: translate(-28%, -52%);
+    opacity: 0.72;
+    filter: saturate(1.05);
+    mask-image: radial-gradient(circle at 45% 48%, #000 42%, transparent 74%);
+    -webkit-mask-image: radial-gradient(circle at 45% 48%, #000 42%, transparent 74%);
+}
+
+.hero-globe::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, var(--bg) 8%, rgba(9, 9, 11, 0.55) 38%, transparent 68%),
+        linear-gradient(180deg, rgba(9, 9, 11, 0.35) 0%, transparent 28%, rgba(9, 9, 11, 0.55) 100%);
+    pointer-events: none;
+}
+
 .hero-main {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -615,6 +650,8 @@ main > section.section-panel--tall > .container {
 }
 
 .hero.section-panel > .container.hero-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     min-height: calc(100dvh - var(--header-h) - 3rem);
     min-height: calc(100svh - var(--header-h) - 3rem);
@@ -652,6 +689,7 @@ main > section.section-panel--tall > .container {
 
 .hero-visual {
     position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 520px;
     margin-inline: auto;
@@ -731,9 +769,37 @@ main > section.section-panel--tall > .container {
         margin-bottom: 0.75rem;
     }
 
+    .hero-globe canvas {
+        left: 62%;
+        width: min(88vmin, 780px);
+        height: min(88vmin, 780px);
+        opacity: 0.8;
+        transform: translate(-18%, -54%);
+    }
+
     .mockup-stack {
         margin-inline: 0 0 auto;
         max-height: min(38vh, 340px);
+    }
+
+    .hero-visual {
+        opacity: 0.92;
+    }
+}
+
+@media (max-width: 639px) {
+    .hero-globe canvas {
+        left: 50%;
+        width: min(120vw, 560px);
+        height: min(120vw, 560px);
+        opacity: 0.45;
+        transform: translate(-35%, -42%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-globe canvas {
+        opacity: 0.35;
     }
 }
 
