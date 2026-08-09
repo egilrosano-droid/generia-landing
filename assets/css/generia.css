@@ -108,12 +108,16 @@ a {
     letter-spacing: -0.02em;
 }
 
-.brand.brand-text {
-    font-size: 1.125rem;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: -0.03em;
-    color: var(--text);
+.brand.brand-logo img {
+    display: block;
+    height: 2rem;
+    width: auto;
+}
+
+@media (min-width: 900px) {
+    .brand.brand-logo img {
+        height: 2.25rem;
+    }
 }
 
 .site-footer .brand img {
@@ -659,14 +663,6 @@ main > section.section-panel--tall > .container {
     align-items: flex-start;
 }
 
-.hero-logo {
-    display: block;
-    width: min(100%, 15rem);
-    height: auto;
-    margin: 0 0 0.85rem;
-    object-fit: contain;
-}
-
 .hero.section-panel > .container.hero-grid {
     position: relative;
     z-index: 1;
@@ -780,11 +776,6 @@ main > section.section-panel--tall > .container {
 @media (min-width: 900px) {
     .hero-grid {
         grid-template-columns: 1.05fr 0.95fr;
-    }
-
-    .hero-logo {
-        width: min(100%, 17rem);
-        margin-bottom: 0.75rem;
     }
 
     .hero-globe-stage {
