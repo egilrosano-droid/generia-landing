@@ -603,7 +603,7 @@ main > section.section-panel--tall > .container {
 #marketing.section-panel {
     padding-top: var(--header-h);
     padding-bottom: 0.75rem;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #marketing.section-panel > .container.marketing-layout {
@@ -651,9 +651,13 @@ main > section.section-panel--tall > .container {
     grid-template-columns: 1fr;
     gap: 0.55rem;
     min-width: 0;
+    overflow: visible;
+    isolation: isolate;
 }
 
 .marketing-row {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 5.25rem 1fr;
     gap: 0.55rem;
@@ -662,13 +666,22 @@ main > section.section-panel--tall > .container {
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: rgba(20, 20, 22, 0.55);
-    transition: border-color 0.2s, background 0.2s;
+    transform-origin: center center;
+    transition:
+        transform 0.35s var(--ease),
+        box-shadow 0.35s var(--ease),
+        border-color 0.25s,
+        background 0.2s,
+        z-index 0s;
     min-width: 0;
 }
 
 .marketing-row:hover {
+    z-index: 30;
+    transform: scale(2);
     border-color: var(--border-hover);
-    background: rgba(20, 20, 22, 0.85);
+    background: rgba(20, 20, 22, 0.95);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
 
 .marketing-thumb {
@@ -725,6 +738,26 @@ main > section.section-panel--tall > .container {
     .marketing-pages {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .marketing-pages .marketing-row:nth-child(1) {
+        transform-origin: left top;
+    }
+
+    .marketing-pages .marketing-row:nth-child(2) {
+        transform-origin: right top;
+    }
+
+    .marketing-pages .marketing-row:nth-child(3) {
+        transform-origin: left center;
+    }
+
+    .marketing-pages .marketing-row:nth-child(4) {
+        transform-origin: right center;
+    }
+
+    .marketing-pages .marketing-row:nth-child(5) {
+        transform-origin: left bottom;
+    }
 }
 
 @media (min-width: 900px) {
@@ -732,6 +765,7 @@ main > section.section-panel--tall > .container {
         grid-template-columns: minmax(200px, 0.85fr) minmax(0, 1.35fr);
         gap: clamp(1.25rem, 2.5vw, 2rem);
         align-items: center;
+        overflow: visible;
     }
 
     .marketing-row {
@@ -988,7 +1022,8 @@ main > section.section-panel--tall > .container {
         opacity: 0.4;
     }
 
-    #productos .product-card:hover {
+    #productos .product-card:hover,
+    .marketing-row:hover {
         transform: none;
         box-shadow: var(--shadow-card);
     }
