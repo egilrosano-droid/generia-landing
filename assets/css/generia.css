@@ -924,10 +924,10 @@ main > section.section-panel--tall > .container {
 .mockup-stack {
     position: relative;
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     margin-inline: auto;
     aspect-ratio: 4 / 3;
-    max-height: min(48vw, 320px);
+    max-height: min(52vw, 360px);
 }
 
 .mockup-card {
@@ -948,27 +948,43 @@ main > section.section-panel--tall > .container {
 }
 
 .mockup-card--careflow {
-    width: 66%;
-    top: 4%;
-    left: 2%;
-    z-index: 3;
-    transform: rotate(-2deg);
+    width: 52%;
+    top: 2%;
+    left: 0%;
+    z-index: 5;
+    transform: rotate(-3deg);
 }
 
 .mockup-card--axiora {
-    width: 62%;
-    top: 22%;
-    right: 2%;
-    z-index: 2;
-    transform: rotate(3deg);
+    width: 48%;
+    top: 8%;
+    right: 0%;
+    z-index: 4;
+    transform: rotate(3.5deg);
 }
 
 .mockup-card--aulaiq {
-    width: 58%;
-    bottom: 4%;
-    left: 20%;
+    width: 46%;
+    top: 36%;
+    left: 18%;
+    z-index: 3;
+    transform: rotate(-1.5deg);
+}
+
+.mockup-card--linkcore {
+    width: 44%;
+    bottom: 2%;
+    left: 2%;
+    z-index: 2;
+    transform: rotate(2deg);
+}
+
+.mockup-card--sannora {
+    width: 44%;
+    bottom: 0%;
+    right: 4%;
     z-index: 1;
-    transform: rotate(-1deg);
+    transform: rotate(-2.5deg);
 }
 
 .mockup-label {
