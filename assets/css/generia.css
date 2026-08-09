@@ -499,7 +499,7 @@ main > section.section-panel--tall > .container {
 
 #productos .product-card:hover {
     z-index: 30;
-    transform: scale(2);
+    transform: scale(1.2);
     border-color: var(--border-hover);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
