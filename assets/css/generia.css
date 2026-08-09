@@ -497,11 +497,14 @@ main > section.section-panel--tall > .container {
         z-index 0s;
 }
 
-#productos .product-card:hover {
-    z-index: 30;
-    transform: scale(2);
-    border-color: var(--border-hover);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+/* Enlarge only on mouse/trackpad — not on iPhone/touch */
+@media (hover: hover) and (pointer: fine) {
+    #productos .product-card:hover {
+        z-index: 30;
+        transform: scale(2);
+        border-color: var(--border-hover);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+    }
 }
 
 #productos .product-card .product-shot {
@@ -676,12 +679,14 @@ main > section.section-panel--tall > .container {
     min-width: 0;
 }
 
-.marketing-row:hover {
-    z-index: 30;
-    transform: scale(2);
-    border-color: var(--border-hover);
-    background: rgba(20, 20, 22, 0.95);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+@media (hover: hover) and (pointer: fine) {
+    .marketing-row:hover {
+        z-index: 30;
+        transform: scale(2);
+        border-color: var(--border-hover);
+        background: rgba(20, 20, 22, 0.95);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+    }
 }
 
 .marketing-thumb {
@@ -1095,12 +1100,13 @@ main > section.section-panel--tall > .container {
     transition: border-color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s;
 }
 
-.feature-card:hover,
-.product-card:hover,
-.solution-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card);
+@media (hover: hover) and (pointer: fine) {
+    .feature-card:hover,
+    .solution-card:hover {
+        border-color: var(--border-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-card);
+    }
 }
 
 .feature-card .icon,
@@ -1309,12 +1315,14 @@ main > section.section-panel--tall > .container {
         z-index 0s;
 }
 
-.process-step:hover {
-    z-index: 30;
-    transform: scale(1.2);
-    border-color: var(--border-hover);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-    background: rgba(20, 20, 22, 0.85);
+@media (hover: hover) and (pointer: fine) {
+    .process-step:hover {
+        z-index: 30;
+        transform: scale(1.2);
+        border-color: var(--border-hover);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+        background: rgba(20, 20, 22, 0.85);
+    }
 }
 
 .process-step .step-num {
