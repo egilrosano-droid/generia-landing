@@ -499,7 +499,7 @@ main > section.section-panel--tall > .container {
 
 #productos .product-card:hover {
     z-index: 30;
-    transform: scale(1.2);
+    transform: scale(2);
     border-color: var(--border-hover);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
@@ -1023,7 +1023,8 @@ main > section.section-panel--tall > .container {
     }
 
     #productos .product-card:hover,
-    .marketing-row:hover {
+    .marketing-row:hover,
+    .process-step:hover {
         transform: none;
         box-shadow: var(--shadow-card);
     }
@@ -1267,6 +1268,8 @@ main > section.section-panel--tall > .container {
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr;
+    overflow: visible;
+    isolation: isolate;
 }
 
 @media (min-width: 768px) {
@@ -1276,10 +1279,26 @@ main > section.section-panel--tall > .container {
 }
 
 .process-step {
+    position: relative;
+    z-index: 1;
     padding: 1.5rem;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     background: rgba(20, 20, 22, 0.4);
+    transform-origin: center center;
+    transition:
+        transform 0.35s var(--ease),
+        box-shadow 0.35s var(--ease),
+        border-color 0.25s,
+        z-index 0s;
+}
+
+.process-step:hover {
+    z-index: 30;
+    transform: scale(1.2);
+    border-color: var(--border-hover);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+    background: rgba(20, 20, 22, 0.85);
 }
 
 .process-step .step-num {
@@ -1319,6 +1338,10 @@ main > section.section-panel--tall > .container {
 #por-que.section-panel {
     padding-top: var(--header-h);
     padding-bottom: 0.75rem;
+}
+
+#proceso.section-panel {
+    overflow: visible;
 }
 
 #proceso.section-panel > .container,
