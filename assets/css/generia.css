@@ -924,15 +924,14 @@ main > section.section-panel--tall > .container {
 .mockup-stack {
     position: relative;
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     margin-inline: auto;
-    aspect-ratio: 3 / 4;
-    max-height: min(58vw, 420px);
+    aspect-ratio: 4 / 3;
+    max-height: min(52vw, 360px);
 }
 
 .mockup-card {
     position: absolute;
-    width: 68%;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     background: var(--bg-card);
@@ -948,40 +947,44 @@ main > section.section-panel--tall > .container {
     object-position: top;
 }
 
-/* Vertical cascade, slightly messy like the original 3-card stack */
 .mockup-card--careflow {
-    top: 0%;
-    left: 4%;
+    width: 52%;
+    top: 2%;
+    left: 0%;
     z-index: 5;
-    transform: rotate(-2.5deg);
+    transform: rotate(-3deg);
 }
 
 .mockup-card--axiora {
-    top: 14%;
-    left: 22%;
+    width: 48%;
+    top: 8%;
+    right: 0%;
     z-index: 4;
-    transform: rotate(3deg);
+    transform: rotate(3.5deg);
 }
 
 .mockup-card--aulaiq {
-    top: 28%;
-    left: 8%;
+    width: 46%;
+    top: 36%;
+    left: 18%;
     z-index: 3;
     transform: rotate(-1.5deg);
 }
 
 .mockup-card--linkcore {
-    top: 42%;
-    left: 26%;
+    width: 44%;
+    bottom: 2%;
+    left: 2%;
     z-index: 2;
-    transform: rotate(2.5deg);
+    transform: rotate(2deg);
 }
 
 .mockup-card--sannora {
-    top: 56%;
-    left: 10%;
+    width: 44%;
+    bottom: 0%;
+    right: 4%;
     z-index: 1;
-    transform: rotate(-3deg);
+    transform: rotate(-2.5deg);
 }
 
 .mockup-label {
@@ -1012,8 +1015,7 @@ main > section.section-panel--tall > .container {
 
     .mockup-stack {
         margin-inline: 0 0 auto;
-        max-height: min(52vh, 440px);
-        aspect-ratio: 3 / 4;
+        max-height: min(38vh, 340px);
     }
 
     .hero-visual {
