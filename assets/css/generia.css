@@ -121,13 +121,13 @@ a {
 }
 
 .site-footer .brand img {
-    height: 2rem;
+    height: 6rem;
     width: auto;
 }
 
 @media (max-width: 768px) {
     .site-footer .brand img {
-        height: 1.75rem;
+        height: 5.25rem;
     }
 }
 
