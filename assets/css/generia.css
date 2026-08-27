@@ -761,6 +761,14 @@ main > section.section-panel--tall > .container {
     }
 
     .marketing-pages .marketing-row:nth-child(5) {
+        transform-origin: left center;
+    }
+
+    .marketing-pages .marketing-row:nth-child(6) {
+        transform-origin: right bottom;
+    }
+
+    .marketing-pages .marketing-row:nth-child(7) {
         transform-origin: left bottom;
     }
 }
