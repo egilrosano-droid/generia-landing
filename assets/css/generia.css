@@ -765,11 +765,15 @@ main > section.section-panel--tall > .container {
     }
 
     .marketing-pages .marketing-row:nth-child(6) {
-        transform-origin: right bottom;
+        transform-origin: right center;
     }
 
     .marketing-pages .marketing-row:nth-child(7) {
         transform-origin: left bottom;
+    }
+
+    .marketing-pages .marketing-row:nth-child(8) {
+        transform-origin: right bottom;
     }
 }
 
